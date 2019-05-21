@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@android:color/background_light"
+              android:orientation="vertical"
+              tools:context=".MoonFragment">
+
+    <TextView
+            android:id="@+id/labelMoon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/black"
+            android:text="@string/moon"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="40sp" />
+
+    <TextView
+            android:id="@+id/labelMoonriseTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:text="Wschód:"
+            android:textSize="34sp" />
+
+    <TextView
+            android:id="@+id/tvMoonriseTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:text="moonrise time"
+            android:textSize="24sp" />
+
+    <TextView
+            android:id="@+id/labelMoonset"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:text="Zachód:"
+            android:textSize="34sp" />
+
+    <TextView
+            android:id="@+id/tvMoonsetTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:text="moonset time"
+            android:textSize="24sp" />
+
+    <TextView
+            android:id="@+id/labelNextNewMoon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:text="Najbliższy nów:"
+            android:textSize="34sp" />
+
+    <TextView
+            android:id="@+id/tvNextNewMoon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:text="next new moon time"
+            android:textSize="24sp" />
+
+    <TextView
+            android:id="@+id/labelNextFullMoon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:text="Najbliższa pełnia:"
+            android:textSize="34sp" />
+
+    <TextView
+            android:id="@+id/tvNextFullMoon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:text="next full moon time"
+            android:textSize="24sp" />
+
+    <TextView
+            android:id="@+id/labelMoonState"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:text="Widoczność:"
+            android:textSize="34sp" />
+
+    <TextView
+            android:id="@+id/tvMoonState"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:text="moon state"
+            android:textSize="24sp" />
+
+    <TextView
+            android:id="@+id/labelLunarMonth"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="2dp"
+            android:text="Lunacja:"
+            android:textSize="34sp" />
+
+    <TextView
+            android:id="@+id/tvLunarMonth"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:text="dzien miesiaca synodycznego"
+            android:textSize="24sp" />
+
+</LinearLayout>
