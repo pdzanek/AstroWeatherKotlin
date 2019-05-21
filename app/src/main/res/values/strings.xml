@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Astro Weather</string>
+    <string name="action_settings">Settings</string>
+    <string name="moon">Księżyc</string>
+    <string name="sun">Słońce</string>
+    <string name="views_current_time">Views current time</string>
+</resources>
