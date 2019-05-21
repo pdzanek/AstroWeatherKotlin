@@ -21,7 +21,7 @@
                 android:id="@+id/labelMenu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Ustawienia"
+                android:text="@string/settings"
                 android:textAlignment="textStart"
                 android:textSize="36sp" />
 
@@ -38,7 +38,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Szerokość"
+                android:hint="@string/latitude"
                 android:inputType="numberSigned|numberDecimal"
                 android:textAlignment="viewStart"
                 android:textSize="14sp" />
@@ -48,7 +48,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Długość"
+                android:hint="@string/longitude"
                 android:inputType="numberSigned|numberDecimal"
                 android:textAlignment="viewStart"
                 android:textSize="14sp" />
@@ -57,7 +57,7 @@
                 android:id="@+id/labelSetTime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Wybierz czas aktualizacji danych astronomicznych:"
+                android:text="@string/select_update_time"
                 android:textAlignment="viewStart"
                 android:textSize="18sp" />
 
@@ -74,13 +74,13 @@
                 android:id="@+id/buttonSaveAndExit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Zapisz i wyjdź" />
+                android:text="@string/exit_and_save" />
 
         <Button
                 android:id="@+id/buttonExitWithoutSaving"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Wyjdź bez zapisywania" />
+                android:text="@string/exit_without_saving" />
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
