@@ -74,13 +74,13 @@
                 android:id="@+id/buttonSaveAndExit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/exit_and_save" />
+                android:text="@string/exit_and_save" android:onClick="onClick"/>
 
         <Button
                 android:id="@+id/buttonExitWithoutSaving"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/exit_without_saving" />
+                android:text="@string/exit_without_saving" android:onClick="onClick"/>
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

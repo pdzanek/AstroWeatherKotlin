@@ -20,11 +20,11 @@ import java.text.SimpleDateFormat
 import java.util.*
 import android.support.v4.app.FragmentPagerAdapter
 
-
-
-
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
+
+    lateinit var moonFragment: MoonFragment
+    lateinit var sunFragment: SunFragment
     private var updateTime: Int = 1
     lateinit var textClock: TextView
     var shouldUpdateThreadRun: Boolean = true
@@ -33,7 +33,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var cal: Calendar
     private lateinit var dateTime: String
     private lateinit var viewPager: ViewPager
-    lateinit var sunFragment : SunFragment
 
     override fun onClick(v: View?) {
         when (v!!.id) {
@@ -52,14 +51,17 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         initComponents()
     }
 
-    class MyPagerAdapter(fragmentManager: FragmentManager) : FragmentPagerAdapter(fragmentManager) {
+    inner class MyPagerAdapter(fragmentManager: FragmentManager) : FragmentPagerAdapter(fragmentManager) {
+
         override fun getItem(position: Int): android.support.v4.app.Fragment? {
             when (position) {
                 0 -> {
-                    return SunFragment()
+                    sunFragment = SunFragment()
+                    return sunFragment
                 }
                 1 ->{
-                    return MoonFragment()
+                    moonFragment = MoonFragment()
+                    return moonFragment
                 }
             }
             return null
