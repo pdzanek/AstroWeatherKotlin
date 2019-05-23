@@ -23,11 +23,14 @@ import android.support.v4.app.FragmentPagerAdapter
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
 
-    lateinit var moonFragment: MoonFragment
-    lateinit var sunFragment: SunFragment
-    private var updateTime: Int = 1
-    lateinit var textClock: TextView
-    var shouldUpdateThreadRun: Boolean = true
+    lateinit var moonFragment : MoonFragment
+    lateinit var sunFragment : SunFragment
+    lateinit var basicWeatherFragment : BasicWeatherFragment
+    lateinit var extendedWeatherFragment : ExtendedWeatherFragment
+    lateinit var forecastFragment : ForecastFragment
+    private var updateTime = 1
+    private lateinit var textClock: TextView
+    private var shouldUpdateThreadRun: Boolean = true
     private var timeSinceLastUpdate = 0
     private lateinit var dateFormat: DateFormat
     private lateinit var cal: Calendar
@@ -63,12 +66,24 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                     moonFragment = MoonFragment()
                     return moonFragment
                 }
+                2 ->{
+                    basicWeatherFragment = BasicWeatherFragment()
+                    return basicWeatherFragment
+                }
+                3 ->{
+                    extendedWeatherFragment = ExtendedWeatherFragment()
+                    return extendedWeatherFragment
+                }
+                4 ->{
+                    forecastFragment = ForecastFragment()
+                    return forecastFragment
+                }
             }
             return null
         }
 
         override fun getCount(): Int {
-            return 2
+            return 5
         }
     }
 

@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="2dp"
-            android:text="Wschód:"
+            android:text="@string/sunrise"
             android:textSize="34sp" />
 
     <TextView
@@ -31,14 +31,14 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="2dp"
             android:text="moonrise time"
-            android:textSize="24sp" />
+            android:textSize="24sp" tools:ignore="HardcodedText"/>
 
     <TextView
             android:id="@+id/labelMoonset"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="2dp"
-            android:text="Zachód:"
+            android:text="@string/moonset"
             android:textSize="34sp" />
 
     <TextView
@@ -47,14 +47,14 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="2dp"
             android:text="moonset time"
-            android:textSize="24sp" />
+            android:textSize="24sp" tools:ignore="HardcodedText"/>
 
     <TextView
             android:id="@+id/labelNextNewMoon"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="2dp"
-            android:text="Najbliższy nów:"
+            android:text="@string/nearest_new_moon"
             android:textSize="34sp" />
 
     <TextView
@@ -63,14 +63,14 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="2dp"
             android:text="next new moon time"
-            android:textSize="24sp" />
+            android:textSize="24sp" tools:ignore="HardcodedText"/>
 
     <TextView
             android:id="@+id/labelNextFullMoon"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="2dp"
-            android:text="Najbliższa pełnia:"
+            android:text="@string/nearest_full_moon"
             android:textSize="34sp" />
 
     <TextView
@@ -79,14 +79,14 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="2dp"
             android:text="next full moon time"
-            android:textSize="24sp" />
+            android:textSize="24sp" tools:ignore="HardcodedText"/>
 
     <TextView
             android:id="@+id/labelMoonState"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="2dp"
-            android:text="Widoczność:"
+            android:text="@string/illumination"
             android:textSize="34sp" />
 
     <TextView
@@ -95,14 +95,14 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="2dp"
             android:text="moon state"
-            android:textSize="24sp" />
+            android:textSize="24sp" tools:ignore="HardcodedText"/>
 
     <TextView
             android:id="@+id/labelLunarMonth"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="2dp"
-            android:text="Lunacja:"
+            android:layout_marginStart="2dp"
+            android:text="@string/moon_age"
             android:textSize="34sp" />
 
     <TextView
@@ -111,6 +111,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="2dp"
             android:text="dzien miesiaca synodycznego"
-            android:textSize="24sp" />
+            android:textSize="24sp" tools:ignore="HardcodedText"/>
 
 </LinearLayout>

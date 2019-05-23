@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@android:color/background_light"
+              android:orientation="vertical"
+              tools:context=".SunFragment">
+
+    <TextView
+            android:id="@+id/labelSun"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/yellow"
+            android:text="@string/sun"
+            android:textAlignment="center"
+            android:textSize="30sp"/>
+    <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" android:layout_weight="1" android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp">
+        <TextView
+                android:id="@+id/labelSunSunriseTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:text="@string/sunrise"
+                android:textSize="30sp" android:layout_weight="1"/>
+        <TextView
+                android:id="@+id/tvSunSunriseTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:text="sunrise time"
+                android:textSize="24sp" android:layout_weight="1" tools:ignore="HardcodedText"/>
+        <TextView
+                android:id="@+id/tvSunSunriseAzimuth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:text="sunrise azimuth"
+                android:textSize="24sp" android:layout_weight="1" tools:ignore="HardcodedText"/>
+    </TableRow>
+
+    <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" android:layout_weight="1" android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp">
+        <TextView
+                android:id="@+id/labelSunset"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="2dp"
+                android:text="@string/sunset"
+                android:textSize="30sp" android:layout_weight="1"/>
+        <TextView
+                android:id="@+id/tvSunsetTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:text="sunset time"
+                android:textSize="24sp" android:layout_weight="1" tools:ignore="HardcodedText"/>
+        <TextView
+                android:id="@+id/tvSunsetAzimuth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:text="sunset azimuth"
+                android:textSize="24sp" android:layout_weight="1" tools:ignore="HardcodedText"/>
+    </TableRow>
+
+    <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" android:layout_weight="1" android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp">
+        <TextView
+                android:id="@+id/labelSunTwilightMorning"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="2dp"
+                android:text="@string/twilight_morning"
+                android:textSize="30sp" android:layout_weight="1"/>
+        <TextView
+                android:id="@+id/tvSunTwilightMorning"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:text="sun twilight morning time"
+                android:textSize="24sp" android:layout_weight="1" tools:ignore="HardcodedText"/>
+    </TableRow>
+    <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" android:layout_weight="1" android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp">
+        <TextView
+                android:id="@+id/labelSunTwilightSunset"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="2dp"
+                android:text="@string/twilight_sunset"
+                android:textSize="30sp" android:layout_weight="1"/>
+        <TextView
+                android:id="@+id/tvSunTwilightEvening"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:text="sun twilight sunset time"
+                android:textSize="24sp" android:layout_weight="1" tools:ignore="HardcodedText"/>
+    </TableRow>
+
+</LinearLayout>

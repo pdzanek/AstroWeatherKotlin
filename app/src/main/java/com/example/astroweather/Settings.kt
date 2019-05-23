@@ -11,11 +11,11 @@ import java.lang.Double.parseDouble
 import android.preference.PreferenceManager
 
 class Settings : AppCompatActivity(), View.OnClickListener {
-    var latitude = 0.0
-    var longitude = 0.0
-    var updateTime = 1
-    var readedLongitude = ""
-    var readedLatitude = ""
+    private var latitude = 0.0
+    private var longitude = 0.0
+    private var updateTime = 1
+    private var readerLongitude = ""
+    private var readerLatitude = ""
 
     override fun onClick(v: View?) {
         when(v!!.id){
@@ -63,16 +63,16 @@ class Settings : AppCompatActivity(), View.OnClickListener {
         }
         else{
             setSpinnerSelection(updateTime)
-            editLatitude.setText(readedLatitude)
-            editLongitude.setText(readedLongitude)
+            editLatitude.setText(readerLatitude)
+            editLongitude.setText(readerLongitude)
         }
     }
 
     @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
     fun readSharedPreferences() {
         val preferences = PreferenceManager.getDefaultSharedPreferences(this)
-        readedLatitude = preferences.getString("latitude","0.0")
-        readedLongitude = preferences.getString("longitude", "0.0")
+        readerLatitude = preferences.getString("latitude","0.0")
+        readerLongitude = preferences.getString("longitude", "0.0")
         updateTime = preferences.getInt("updateTime", 1)
     }
     private fun initComponents(){
@@ -86,7 +86,7 @@ class Settings : AppCompatActivity(), View.OnClickListener {
         super.onSaveInstanceState(savedInstanceState)
     }
 
-    fun setSpinnerSelection(updateTime: Int) {
+    private fun setSpinnerSelection(updateTime: Int) {
         when (updateTime) {
             1 -> spinnerTime.setSelection(0)
             2 -> spinnerTime.setSelection(1)
