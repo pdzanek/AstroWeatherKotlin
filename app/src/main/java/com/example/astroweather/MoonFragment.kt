@@ -1,39 +1,37 @@
 package com.example.astroweather
 
-import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Activities that contain this fragment must implement the
- * [MoonFrament.OnFragmentInteractionListener] interface
- * to handle interaction events.
- * Use the [MoonFrament.newInstance] factory method to
- * create an instance of this fragment.
- *
- */
 class MoonFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-    private var listener: OnFragmentInteractionListener? = null
+    private var moonriseTime: String? = null
+    private var moonsetTime: String? = null
+    private var nextNewMoon: String? = null
+    private var nextFullMoon: String? = null
+    private var moonState: String? = null
+    private var lunarMonth: String? = null
+    private var listener: SunFragment.OnFragmentInteractionListener? = null
+    private lateinit var tvMoonriseTime: TextView
+    private lateinit var tvMoonsetTime: TextView
+    private lateinit var tvNextNewMoon: TextView
+    private lateinit var tvNextFullMoon: TextView
+    private lateinit var tvMoonState: TextView
+    private lateinit var tvLunarMonth: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+            moonriseTime = it.getString("moonriseTime")
+            moonsetTime = it.getString("moonsetTime")
+            nextNewMoon = it.getString("nextNewMoon")
+            nextFullMoon = it.getString("nextFullMoon")
+            moonState = it.getString("moonState")
+            lunarMonth = it.getString("lunarMonth")
         }
     }
 
@@ -41,8 +39,18 @@ class MoonFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_moon, container, false)
+        val v =  inflater.inflate(R.layout.fragment_moon, container, false)
+
+        tvMoonriseTime = v.findViewById(R.id.tvMoonriseTime)
+        tvMoonsetTime = v.findViewById(R.id.tvMoonsetTime)
+        tvNextNewMoon = v.findViewById(R.id.tvNextNewMoon)
+        tvNextFullMoon = v.findViewById(R.id.tvNextFullMoon)
+        tvMoonState = v.findViewById(R.id.tvMoonState)
+        tvLunarMonth = v.findViewById(R.id.tvLunarMonth)
+        if ((moonriseTime != null) and (moonsetTime != null) && (nextNewMoon != null) and (nextFullMoon != null) && moonState != null && lunarMonth != null) {
+            setTextViews()
+        }
+        return v
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -50,53 +58,54 @@ class MoonFragment : Fragment() {
         listener?.onFragmentInteraction(uri)
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        if (context is OnFragmentInteractionListener) {
-            listener = context
-        } else {
-            //throw RuntimeException("$context must implement OnFragmentInteractionListener")
-        }
+    private fun setTextViews() {
+        tvMoonriseTime.text = moonriseTime
+        tvMoonsetTime.text = moonsetTime
+        tvNextNewMoon.text = nextNewMoon
+        tvNextFullMoon.text = nextFullMoon
+        tvMoonState.text = moonState
+        tvLunarMonth.text = lunarMonth
+    }
+
+    fun updateTextViews(moonriseTime: String,moonsetTime: String,nextNewMoon: String,nextFullMoon: String,moonState: String,lunarMonth: String){
+        this.moonriseTime=moonriseTime
+        this.moonsetTime=moonsetTime
+        this.nextNewMoon=nextNewMoon
+        this.nextFullMoon=nextFullMoon
+        this.moonState=moonState
+        this.lunarMonth=lunarMonth
+        setTextViews()
     }
 
     override fun onDetach() {
         super.onDetach()
         listener = null
     }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     *
-     *
-     * See the Android Training lesson [Communicating with Other Fragments]
-     * (http://developer.android.com/training/basics/fragments/communicating.html)
-     * for more information.
-     */
     interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         fun onFragmentInteraction(uri: Uri)
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment MoonFrament.
-         */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            MoonFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+        fun newInstance(moonriseTime: String,
+                        moonsetTime: String,
+                        nextNewMoon: String,
+                        nextFullMoon: String,
+                        moonState: String,
+                        lunarMonth: String
+        ):MoonFragment {
+
+            val mf = MoonFragment()
+            val b = Bundle()
+            b.putString("moonriseTime", moonriseTime)
+            b.putString("moonsetTime", moonsetTime)
+            b.putString("nextNewMoon", nextNewMoon)
+            b.putString("nextFullMoon", nextFullMoon)
+            b.putString("moonState", moonState)
+            b.putString("lunarMonth", lunarMonth)
+            mf.arguments = b
+            return mf
+        }
     }
 }

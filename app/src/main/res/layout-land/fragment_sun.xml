@@ -32,14 +32,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="2dp"
                 android:text="sunrise time"
-                android:textSize="24sp" android:layout_weight="1" tools:ignore="HardcodedText"/>
+                android:textSize="18sp" android:layout_weight="1" tools:ignore="HardcodedText"/>
         <TextView
                 android:id="@+id/tvSunSunriseAzimuth"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="2dp"
                 android:text="sunrise azimuth"
-                android:textSize="24sp" android:layout_weight="1" tools:ignore="HardcodedText"/>
+                android:textSize="18sp" android:layout_weight="1" tools:ignore="HardcodedText"/>
     </TableRow>
 
     <TableRow
@@ -60,14 +60,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="2dp"
                 android:text="sunset time"
-                android:textSize="24sp" android:layout_weight="1" tools:ignore="HardcodedText"/>
+                android:textSize="18sp" android:layout_weight="1" tools:ignore="HardcodedText"/>
         <TextView
                 android:id="@+id/tvSunsetAzimuth"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="2dp"
                 android:text="sunset azimuth"
-                android:textSize="24sp" android:layout_weight="1" tools:ignore="HardcodedText"/>
+                android:textSize="18sp" android:layout_weight="1" tools:ignore="HardcodedText"/>
     </TableRow>
 
     <TableRow
@@ -88,7 +88,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="2dp"
                 android:text="sun twilight morning time"
-                android:textSize="24sp" android:layout_weight="1" tools:ignore="HardcodedText"/>
+                android:textSize="18sp" android:layout_weight="0.5" tools:ignore="HardcodedText"/>
     </TableRow>
     <TableRow
             android:layout_width="match_parent"
@@ -108,7 +108,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="2dp"
                 android:text="sun twilight sunset time"
-                android:textSize="24sp" android:layout_weight="1" tools:ignore="HardcodedText"/>
+                android:textSize="18sp" android:layout_weight="0.5" tools:ignore="HardcodedText"/>
     </TableRow>
 
 </LinearLayout>

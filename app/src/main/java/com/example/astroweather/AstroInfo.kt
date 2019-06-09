@@ -1,18 +1,16 @@
 package com.example.astroweather
 
 import android.annotation.SuppressLint
+import android.util.Log
 import com.astrocalculator.AstroCalculator
-import com.astrocalculator.AstroCalculator.SunInfo
+
 import com.astrocalculator.AstroDateTime
-import com.astrocalculator.AstroCalculator.MoonInfo
 import org.joda.time.*
 import org.joda.time.format.DateTimeFormat
 
 internal class AstroInfo(dateTime: String, latitude: String, longitude: String) {
     private val astroDateTime: AstroDateTime
     private val astroCalculator: AstroCalculator
-    private val sunInfo: SunInfo
-    private val moonInfo: MoonInfo
     private var year: Int = 0
     private var month: Int = 0
     private var day: Int = 0
@@ -20,70 +18,69 @@ internal class AstroInfo(dateTime: String, latitude: String, longitude: String) 
     private var minute: Int = 0
     private var second: Int = 0
     val sunSunriseTime: String
-        get() = if (sunInfo.sunrise.toString() != sunInfo.sunset.toString()) {
-            sunInfo.sunrise.toString()
+        get() = if (astroCalculator.sunInfo.sunrise.toString() != astroCalculator.sunInfo.sunset.toString()) {
+            astroCalculator.sunInfo.sunrise.toString()
         } else {
             "Brak"
         }
     val sunAzimuthRise: String
         @SuppressLint("DefaultLocale")
-        get() = if (sunInfo.sunrise.toString() != sunInfo.sunset.toString()) {
-            String.format("Azymut: %.4f", sunInfo.azimuthRise)
+        get() = if (astroCalculator.sunInfo.sunrise.toString() != astroCalculator.sunInfo.sunset.toString()) {
+            String.format("Azymut: %.4f", astroCalculator.sunInfo.azimuthRise)
         } else {
             "Brak"
         }
     val sunSunsetTime: String
-        get() = if (sunInfo.sunrise.toString() != sunInfo.sunset.toString()) {
-            sunInfo.sunset.toString()
+        get() = if (astroCalculator.sunInfo.sunrise.toString() != astroCalculator.sunInfo.sunset.toString()) {
+            astroCalculator.sunInfo.sunset.toString()
         } else {
             "Brak"
         }
     val sunAzimuthSunset: String
         @SuppressLint("DefaultLocale")
-        get() = if (sunInfo.sunrise.toString() != sunInfo.sunset.toString()) {
-            String.format("Azymut: %.4f", sunInfo.azimuthSet)
+        get() = if (astroCalculator.sunInfo.sunrise.toString() != astroCalculator.sunInfo.sunset.toString()) {
+            String.format("Azymut: %.4f", astroCalculator.sunInfo.azimuthSet)
         } else {
             "Brak"
         }
     val sunTwilightMorning: String
-        get() = sunInfo.twilightMorning.toString()
+        get() = astroCalculator.sunInfo.twilightMorning.toString()
     val sunTwilightEvening: String
-        get() = sunInfo.twilightEvening.toString()
+        get() = astroCalculator.sunInfo.twilightEvening.toString()
     val moonriseTime: String
         get() {
-            return if (moonInfo.moonrise.toString() == "null") {
+            return if ((""+astroCalculator.moonInfo.moonrise).contains("null",ignoreCase = true)) {
                 val astroDateTimeTemp = astroDateTime
-                astroDateTime.day = astroDateTime.day - 1
+                astroDateTimeTemp.day = astroDateTime.day - 1
                 val astroCalculatorTemp = astroCalculator
                 astroCalculatorTemp.dateTime = astroDateTimeTemp
                 val moonInfoTemp = astroCalculatorTemp.moonInfo
-                moonInfoTemp.moonrise.toString()
+                ""+moonInfoTemp.moonrise
             } else
-                moonInfo.moonrise.toString()
+                ""+astroCalculator.moonInfo.moonrise
         }
     val moonset: String
-        get() {
-            if (moonInfo.moonset.toString() == "null") {
-                val astroDateTimeTemp = astroDateTime
-                astroDateTime.day = astroDateTime.day + 1
-                val astroCalculatorTemp = astroCalculator
-                astroCalculatorTemp.dateTime = astroDateTimeTemp
+        get(){
+            return if ((""+astroCalculator.moonInfo.moonset).contains("null",ignoreCase = true)) {
+                val astroDateTimeTemp = astroCalculator.dateTime
+                astroDateTimeTemp.day=astroDateTime.day+1
+                val astroCalculatorTemp = AstroCalculator(astroDateTimeTemp,astroCalculator.location)
                 val moonInfoTemp = astroCalculatorTemp.moonInfo
-                return moonInfoTemp.moonset.toString()
+                return ""+moonInfoTemp.moonset
             } else
-                return moonInfo.moonset.toString()
+                "" + astroCalculator.moonInfo.moonset
         }
     val nextNewMoon: String
-        get() = moonInfo.nextNewMoon.toString()
+        get() = ""+astroCalculator.moonInfo.nextNewMoon
     val nextFullMoon: String
-        get() = moonInfo.nextFullMoon.toString()
+        get() = ""+astroCalculator.moonInfo.nextFullMoon
     val moonState: String
-        get() = Math.round(moonInfo.illumination * 100).toString() + "%"
+        get() = ""+Math.round(astroCalculator.moonInfo.illumination * 100) + "%"
 
     val lunarMonth: String
         @SuppressLint("DefaultLocale")
         get() {
-            val lastNewMoon = moonInfo.nextNewMoon
+            val lastNewMoon = astroCalculator.moonInfo.nextNewMoon
             val yy = lastNewMoon.year
             val MM = lastNewMoon.month
             val dd = lastNewMoon.day
@@ -103,11 +100,8 @@ internal class AstroInfo(dateTime: String, latitude: String, longitude: String) 
         val timezoneoffset = 1
         val daylightSaving = true
         astroDateTime = AstroDateTime(year, month, day, hour, minute, second, timezoneoffset, daylightSaving)
-        val loc =
-            AstroCalculator.Location(java.lang.Double.parseDouble(latitude), java.lang.Double.parseDouble(longitude))
+        val loc = AstroCalculator.Location(java.lang.Double.parseDouble(latitude), java.lang.Double.parseDouble(longitude))
         astroCalculator = AstroCalculator(astroDateTime, loc)
-        sunInfo = astroCalculator.sunInfo
-        moonInfo = astroCalculator.moonInfo
     }
 
     private fun getDatetimeFields(dateTime: String) {
@@ -121,7 +115,7 @@ internal class AstroInfo(dateTime: String, latitude: String, longitude: String) 
         second = dt.secondOfMinute
     }
 
-    fun updateValues(dateTime: String) {
+    fun updateValues(dateTime: String, latitude: String,longitude: String) {
         getDatetimeFields(dateTime)
         astroDateTime.year = year
         astroDateTime.month = month
@@ -130,5 +124,6 @@ internal class AstroInfo(dateTime: String, latitude: String, longitude: String) 
         astroDateTime.minute = minute
         astroDateTime.second = second
         astroCalculator.dateTime = astroDateTime
+        astroCalculator.location=AstroCalculator.Location(java.lang.Double.parseDouble(latitude), java.lang.Double.parseDouble(longitude))
     }
 }

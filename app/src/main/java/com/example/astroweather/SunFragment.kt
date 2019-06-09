@@ -7,37 +7,32 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Activities that contain this fragment must implement the
- * [SunFrament.OnFragmentInteractionListener] interface
- * to handle interaction events.
- * Use the [SunFrament.newInstance] factory method to
- * create an instance of this fragment.
- *
- */
 class SunFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private var sunriseTime: String? = null
+    private var sunriseAzimuth: String? = null
+    private var sunsetTime: String? = null
+    private var sunsetAzimuth: String? = null
+    private var twilightMorning: String? = null
+    private var twilightEvening: String? = null
     private var listener: OnFragmentInteractionListener? = null
-
-    fun printString(x: String) {
-
-    }
+    private lateinit var tvSunriseTime: TextView
+    private lateinit var tvSunriseAzimuth: TextView
+    private lateinit var tvSunsetTime: TextView
+    private lateinit var tvSunsetAzimuth: TextView
+    private lateinit var tvTwilightMorning: TextView
+    private lateinit var tvTwilightEvening: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+            sunriseTime = it.getString("sunriseTime")
+            sunriseAzimuth = it.getString("sunriseAzimuth")
+            sunsetTime = it.getString("sunsetTime")
+            sunsetAzimuth = it.getString("sunsetAzimuth")
+            twilightMorning = it.getString("twilightMorning")
+            twilightEvening = it.getString("twilightEvening")
         }
     }
 
@@ -45,8 +40,18 @@ class SunFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_sun, container, false)
+        val v =  inflater.inflate(R.layout.fragment_sun, container, false)
+
+        tvSunriseTime = v.findViewById(R.id.tvSunSunriseTime)
+        tvSunriseAzimuth = v.findViewById(R.id.tvSunSunriseAzimuth)
+        tvSunsetTime = v.findViewById(R.id.tvSunsetTime)
+        tvSunsetAzimuth = v.findViewById(R.id.tvSunsetAzimuth)
+        tvTwilightMorning = v.findViewById(R.id.tvSunTwilightMorning)
+        tvTwilightEvening = v.findViewById(R.id.tvSunTwilightEvening)
+        if(sunriseTime !=null && sunriseAzimuth!=null && sunsetTime!=null && sunsetAzimuth!=null && twilightMorning!=null && twilightEvening!=null) {
+            setTextViews()
+        }
+        return v
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -67,40 +72,50 @@ class SunFragment : Fragment() {
         super.onDetach()
         listener = null
     }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     *
-     *
-     * See the Android Training lesson [Communicating with Other Fragments]
-     * (http://developer.android.com/training/basics/fragments/communicating.html)
-     * for more information.
-     */
     interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         fun onFragmentInteraction(uri: Uri)
     }
 
+    private fun setTextViews() {
+        tvSunriseTime.text = sunriseTime
+        tvSunriseAzimuth.text = sunriseAzimuth
+        tvSunsetTime.text = sunsetTime
+        tvSunsetAzimuth.text = sunsetAzimuth
+        tvTwilightMorning.text = twilightMorning
+        tvTwilightEvening.text = twilightEvening
+    }
+    fun updateTextViews(sunriseTime: String,sunriseAzimuth: String,sunsetTime: String,sunsetAzimuth: String,twilightMorning: String,twilightEvening: String){
+        this.sunsetTime=sunriseTime
+        this.sunriseAzimuth=sunriseAzimuth
+        this.sunsetTime=sunsetTime
+        this.sunsetAzimuth=sunsetAzimuth
+        this.twilightMorning=twilightMorning
+        this.twilightEvening=twilightEvening
+        setTextViews()
+    }
+
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment SunFrament.
-         */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            SunFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+        fun newInstance(
+            sunriseTime: String,
+            sunriseAzimuth: String,
+            sunsetTime: String,
+            sunsetAzimuth: String,
+            twilightMorning: String,
+            twilightEvening: String
+        ): SunFragment {
+
+            val sf = SunFragment()
+            val b = Bundle()
+            b.putString("sunriseTime", sunriseTime)
+            b.putString("sunriseAzimuth", sunriseAzimuth)
+            b.putString("sunsetTime", sunsetTime)
+            b.putString("sunsetAzimuth", sunsetAzimuth)
+            b.putString("twilightMorning", twilightMorning)
+            b.putString("twilightEvening", twilightEvening)
+            sf.arguments = b
+            return sf
+        }
     }
 }
