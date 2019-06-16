@@ -15,7 +15,7 @@
             android:text="@string/moon"
             android:textAlignment="center"
             android:textColor="@android:color/white"
-            android:textSize="30sp"/>
+            android:textSize="28sp"/>
 
     <TableRow
             android:layout_width="match_parent"
@@ -34,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="2dp"
                 android:text="moonrise time"
-                android:textSize="24sp" android:layout_weight="1" tools:ignore="HardcodedText"/>
+                android:textSize="23sp" android:layout_weight="1" tools:ignore="HardcodedText"/>
     </TableRow>
 
     <TableRow
@@ -54,7 +54,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="2dp"
                 android:text="moonset time"
-                android:textSize="24sp" android:layout_weight="1" tools:ignore="HardcodedText"/>
+                android:textSize="23sp" android:layout_weight="1" tools:ignore="HardcodedText"/>
     </TableRow>
 
     <TableRow
@@ -74,7 +74,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="2dp"
                 android:text="next new moon time"
-                android:textSize="24sp" android:layout_weight="1" tools:ignore="HardcodedText"/>
+                android:textSize="23sp" android:layout_weight="1" tools:ignore="HardcodedText"/>
     </TableRow>
 
     <TableRow
@@ -94,7 +94,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="2dp"
                 android:text="next full moon time"
-                android:textSize="24sp" android:layout_weight="1" tools:ignore="HardcodedText"/>
+                android:textSize="23sp" android:layout_weight="1" tools:ignore="HardcodedText"/>
     </TableRow>
 
     <TableRow
@@ -114,7 +114,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="2dp"
                 android:text="moon state"
-                android:textSize="24sp" android:layout_weight="1" tools:ignore="HardcodedText"/>
+                android:textSize="23sp" android:layout_weight="1" tools:ignore="HardcodedText"/>
     </TableRow>
 
     <TableRow
@@ -134,7 +134,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="2dp"
                 android:text="dzien miesiaca synodycznego"
-                android:textSize="24sp" android:layout_weight="1" tools:ignore="HardcodedText"/>
+                android:textSize="23sp" android:layout_weight="1" tools:ignore="HardcodedText"/>
     </TableRow>
 
 </LinearLayout>

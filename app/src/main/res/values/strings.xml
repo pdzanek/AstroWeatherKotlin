@@ -24,4 +24,6 @@
     <string name="sunset">Zachód:</string>
     <string name="twilight_morning">Świt cywilny:</string>
     <string name="twilight_sunset">Zmierzch cywilny:</string>
+    <string name="basic_weather">Podstawowa Pogoda</string>
+    <string name="city_name">Nazwa Miasta</string>
 </resources>

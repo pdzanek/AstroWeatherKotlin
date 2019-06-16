@@ -1,11 +1,13 @@
 package com.example.astroweather
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.preference.PreferenceManager
-import android.support.v4.app.FragmentManager
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
@@ -17,18 +19,12 @@ import kotlinx.coroutines.*
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
-import android.support.v4.app.FragmentPagerAdapter
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
+import com.example.astroweather.WeatherObject as WeatherObject
 
-@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
+@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS", "DEPRECATION")
 class MainActivity : AppCompatActivity(), View.OnClickListener {
-
-    lateinit var moonFragment : MoonFragment
-    lateinit var sunFragment : SunFragment
-    lateinit var basicWeatherFragment : BasicWeatherFragment
-    lateinit var extendedWeatherFragment : ExtendedWeatherFragment
-    lateinit var forecastFragment : ForecastFragment
     private var updateTime = 1
     private lateinit var textClock: TextView
     private var shouldUpdateThreadRun: Boolean = true
@@ -52,6 +48,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var nextFullMoon: String
     private lateinit var moonState: String
     private lateinit var lunarMonth: String
+    private lateinit var myPagerAdapter: MyPagerAdapter
+    private lateinit var myPagerAdapter600: MyPagerAdapter600
+    private lateinit var myWeatherAdapter: MyWeatherAdapter
+    private var networkConnection: Boolean = false
     companion object{
         private lateinit var astroInfo : AstroInfo
     }
@@ -73,22 +73,41 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         if (savedInstanceState != null) {
             timeSinceLastUpdate = savedInstanceState.getInt("timeSinceLastUpdate")
         }
-
-        viewPager=findViewById(R.id.viewPager)
-
-        if (this.resources.configuration.smallestScreenWidthDp >= 600) {
-            viewPager.adapter = MyPagerAdapter600(supportFragmentManager)
-            viewPagerWeather = findViewById(R.id.viewPagerWeather)
-            viewPagerWeather.adapter=MyWeatherAdapter(supportFragmentManager)
-        }
-        else{
-            viewPager.adapter=MyPagerAdapter(supportFragmentManager)
-        }
         dateFormat = SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
         cal = Calendar.getInstance()
         dateTime = (dateFormat.format(cal.time))
         astroInfo = AstroInfo(dateTime,latitude,longitude)
         updateAstroValues(latitude, longitude)
+        viewPager=findViewById(R.id.viewPager)
+        if (this.resources.configuration.smallestScreenWidthDp >= 600) {
+            myPagerAdapter600 = MyPagerAdapter600(supportFragmentManager)
+            myPagerAdapter600.setValues(sunriseTime,sunriseAzimuth,sunsetTime,sunsetAzimuth,twilightMorning,twilightEvening,moonriseTime,moonsetTime,nextNewMoon,nextFullMoon,moonState,lunarMonth)
+            viewPager.adapter = myPagerAdapter600
+            viewPagerWeather = findViewById(R.id.viewPagerWeather)
+            myWeatherAdapter = MyWeatherAdapter(supportFragmentManager)
+            viewPagerWeather.adapter=myWeatherAdapter
+        }
+        else{
+            myPagerAdapter = MyPagerAdapter(supportFragmentManager)
+            myPagerAdapter.setValues(sunriseTime,sunriseAzimuth,sunsetTime,sunsetAzimuth,twilightMorning,twilightEvening,moonriseTime,moonsetTime,nextNewMoon,nextFullMoon,moonState,lunarMonth)
+            viewPager.adapter = myPagerAdapter
+        }
+        val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        networkConnection = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).state == NetworkInfo.State.CONNECTED || connectivityManager.getNetworkInfo(
+            ConnectivityManager.TYPE_WIFI
+        ).state == NetworkInfo.State.CONNECTED
+        if(networkConnection){
+            Toast.makeText(this,"Dostęp do internetu! Dane zaktualizowane.",Toast.LENGTH_LONG).show()
+            myWeatherAdapter.updateFromNetwork()
+        }
+        else{
+            readWeatherInfoFromFile()
+            Toast.makeText(this,"Brak dostępu do internetu, dane mogą być nieaktualne",Toast.LENGTH_LONG).show()
+        }
+    }
+
+    private fun readWeatherInfoFromFile() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun onRestart() {
@@ -97,107 +116,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         tvLatitude.text = latitude
         tvLongitude.text = longitude
         updateAstroValues(latitude, longitude)
-        setTextViews()
-    }
-    inner class MyPagerAdapter600(fragmentManager: FragmentManager) : FragmentPagerAdapter(fragmentManager) {
-        override fun getItem(position: Int): android.support.v4.app.Fragment? {
-            when (position) {
-                0 -> {
-                    sunFragment = SunFragment.newInstance(
-                        sunriseTime,
-                        sunriseAzimuth,
-                        sunsetTime,
-                        sunsetAzimuth,
-                        twilightMorning,
-                        twilightEvening)
-                    return sunFragment
-                }
-                1 ->{
-                    moonFragment = MoonFragment.newInstance(
-                        moonriseTime,
-                        moonsetTime,
-                        nextNewMoon,
-                        nextFullMoon,
-                        moonState,
-                        lunarMonth
-                    )
-                    return moonFragment
-                }
-            }
-            return null
-        }
-
-        override fun getCount(): Int {
-            return 2
-        }
-    }
-
-    inner class MyWeatherAdapter(fragmentManager: FragmentManager) : FragmentPagerAdapter(fragmentManager) {
-        override fun getItem(position: Int): android.support.v4.app.Fragment? {
-            when (position) {
-                0 ->{
-                    basicWeatherFragment = BasicWeatherFragment()
-                    return basicWeatherFragment
-                }
-                1 ->{
-                    extendedWeatherFragment = ExtendedWeatherFragment()
-                    return extendedWeatherFragment
-                }
-                2 ->{
-                    forecastFragment = ForecastFragment()
-                    return forecastFragment
-                }
-            }
-            return null
-        }
-
-        override fun getCount(): Int {
-            return 3
-        }
-    }
-
-    inner class MyPagerAdapter(fragmentManager: FragmentManager) : FragmentPagerAdapter(fragmentManager) {
-        override fun getItem(position: Int): android.support.v4.app.Fragment? {
-            when (position) {
-                0 -> {
-                    sunFragment = SunFragment.newInstance(
-                        sunriseTime,
-                        sunriseAzimuth,
-                        sunsetTime,
-                        sunsetAzimuth,
-                        twilightMorning,
-                        twilightEvening)
-                    return sunFragment
-                }
-                1 ->{
-                    moonFragment = MoonFragment.newInstance(
-                        moonriseTime,
-                        moonsetTime,
-                        nextNewMoon,
-                        nextFullMoon,
-                        moonState,
-                        lunarMonth
-                        )
-                    return moonFragment
-                }
-                2 ->{
-                    basicWeatherFragment = BasicWeatherFragment()
-                    return basicWeatherFragment
-                }
-                3 ->{
-                    extendedWeatherFragment = ExtendedWeatherFragment()
-                    return extendedWeatherFragment
-                }
-                4 ->{
-                    forecastFragment = ForecastFragment()
-                    return forecastFragment
-                }
-            }
-            return null
-        }
-        override fun getCount(): Int {
-            return 5
-        }
     }
 
     override fun onStart() {
@@ -208,7 +126,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 delay(1000L)
                 setTime()
             }
-            Log.i("globalScope", "Killed")
+            Log.i("globalScope", "")
         }
     }
 
@@ -257,10 +175,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         lunarMonth = astroInfo.lunarMonth
     }
 
-    private fun setTextViews(){
-        sunFragment.updateTextViews(sunriseTime,sunriseAzimuth,sunsetTime,sunsetAzimuth,twilightMorning,twilightEvening)
-        moonFragment.updateTextViews(moonriseTime,moonsetTime,nextNewMoon,nextFullMoon,moonState,lunarMonth)
-    }
     private fun readSharedPreferences(){
         val preferences = PreferenceManager.getDefaultSharedPreferences(this)
         latitude = preferences.getString("latitude","0.0")
@@ -278,7 +192,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                     Toast.makeText(this,"Zaktualizowano dane astronomiczne.",Toast.LENGTH_SHORT).show()
                     timeSinceLastUpdate=0
                 }
-                Log.i("TIME SINCE LAST UPDATE",""+timeSinceLastUpdate)
+                Log.i("Network connection",""+hasNetworkConnection())
                 dateFormat = SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
                 cal = Calendar.getInstance()
                 dateTime = (dateFormat.format(cal.time))
@@ -287,7 +201,19 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             }
         })
     }
-    private fun updateWeatherInfo(){
-        //TODO: API
+    private fun hasNetworkConnection(): Boolean{
+        val cm = this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetwork: NetworkInfo? = cm.activeNetworkInfo
+        return activeNetwork?.isConnectedOrConnecting == true
+    }
+    private fun setTextViews(){
+        if (this.resources.configuration.smallestScreenWidthDp >= 600) {
+            myPagerAdapter600.setTextViews()
+            myWeatherAdapter.setTextViews()
+        }
+        else{
+            myPagerAdapter.setTextViews()
+        }
     }
 }
+

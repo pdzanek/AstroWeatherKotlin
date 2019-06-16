@@ -1,9 +1,7 @@
 package com.example.astroweather
 
 import android.annotation.SuppressLint
-import android.util.Log
 import com.astrocalculator.AstroCalculator
-
 import com.astrocalculator.AstroDateTime
 import org.joda.time.*
 import org.joda.time.format.DateTimeFormat
