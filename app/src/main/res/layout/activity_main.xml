@@ -31,22 +31,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
             <TextView
-                    android:text="Szerokość:"
+                    android:text="@string/latitude"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" android:id="@+id/textView2" android:layout_weight="1"
                     android:textAlignment="center" android:background="#2196F3"/>
             <TextView
-                    android:text="TextView"
+                    android:text="@string/latitude"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" android:id="@+id/tvLatitude" android:background="#2196F3"
                     android:textAlignment="center" android:layout_weight="1"/>
             <TextView
-                    android:text="Długość:"
+                    android:text="@string/longitude"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" android:id="@+id/textView3" android:layout_weight="1"
                     android:textAlignment="center" android:background="#2196F3"/>
             <TextView
-                    android:text="TextView"
+                    android:text="@string/longitude"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" android:id="@+id/tvLongitude" android:background="#2196F3"
                     android:textAlignment="center" android:layout_weight="1"/>

@@ -1,6 +1,5 @@
 package com.example.astroweather
 
-import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -15,7 +14,6 @@ class MoonFragment : Fragment() {
     private var nextFullMoon: String? = null
     private var moonState: String? = null
     private var lunarMonth: String? = null
-    private var listener: SunFragment.OnFragmentInteractionListener? = null
     private lateinit var tvMoonriseTime: TextView
     private lateinit var tvMoonsetTime: TextView
     private lateinit var tvNextNewMoon: TextView
@@ -53,11 +51,6 @@ class MoonFragment : Fragment() {
         return v
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    fun onButtonPressed(uri: Uri) {
-        listener?.onFragmentInteraction(uri)
-    }
-
     private fun setTextViews() {
         tvMoonriseTime.text = moonriseTime
         tvMoonsetTime.text = moonsetTime
@@ -75,15 +68,6 @@ class MoonFragment : Fragment() {
         this.moonState=moonState
         this.lunarMonth=lunarMonth
         setTextViews()
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        listener = null
-    }
-    interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        fun onFragmentInteraction(uri: Uri)
     }
 
     companion object {

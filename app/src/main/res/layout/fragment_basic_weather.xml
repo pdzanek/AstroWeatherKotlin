@@ -33,70 +33,42 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="2dp"
-            android:text="xd"
-            android:textSize="34sp"/>
+            android:text="@string/lat_and_long"
+            android:textSize="34sp" android:id="@+id/labelLatLong"/>
 
     <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="2dp"
-            android:text="xd"
-            android:textSize="24sp" tools:ignore="HardcodedText"/>
+            android:text="lat and long"
+            android:textSize="24sp" tools:ignore="HardcodedText" android:id="@+id/tvLatLong"/>
 
     <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="2dp"
-            android:text="xd"
-            android:textSize="34sp"/>
+            android:text="@string/temperature"
+            android:textSize="34sp" android:id="@+id/labelTemperature"/>
 
     <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="2dp"
-            android:text="xd"
-            android:textSize="24sp" tools:ignore="HardcodedText"/>
+            android:text="temperature"
+            android:textSize="24sp" tools:ignore="HardcodedText" android:id="@+id/tvTemperature"/>
 
     <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="2dp"
-            android:text="xd"
-            android:textSize="34sp"/>
+            android:text="@string/pressure"
+            android:textSize="34sp" android:id="@+id/labelPressure"/>
 
     <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="2dp"
-            android:text="xd"
-            android:textSize="24sp" tools:ignore="HardcodedText"/>
-
-    <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
-            android:text="xd"
-            android:textSize="34sp"/>
-
-    <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
-            android:text="xd"
-            android:textSize="24sp" tools:ignore="HardcodedText"/>
-
-    <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
-            android:text="xd"
-            android:textSize="34sp"/>
-
-    <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
-            android:text="xd"
-            android:textSize="24sp" tools:ignore="HardcodedText"/>
+            android:text="pressure"
+            android:textSize="24sp" tools:ignore="HardcodedText" android:id="@+id/tvPressure"/>
 
 </LinearLayout>

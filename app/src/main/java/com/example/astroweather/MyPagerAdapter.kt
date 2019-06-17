@@ -4,7 +4,7 @@ import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 
 class MyPagerAdapter(fragmentManager: FragmentManager) : FragmentPagerAdapter(fragmentManager) {
-    lateinit var moonFragment: MoonFragment
+    private lateinit var moonFragment: MoonFragment
     lateinit var sunFragment: SunFragment
     lateinit var basicWeatherFragment: BasicWeatherFragment
     lateinit var extendedWeatherFragment: ExtendedWeatherFragment

@@ -26,4 +26,8 @@
     <string name="twilight_sunset">Zmierzch cywilny:</string>
     <string name="basic_weather">Podstawowa Pogoda</string>
     <string name="city_name">Nazwa Miasta</string>
+    <string name="lat_and_long">Szerokość I Długość</string>
+    <string name="temperature">Temperatura</string>
+    <string name="pressure">Ciśnienie</string>
+    <string name="has_connection">Has connection</string>
 </resources>
