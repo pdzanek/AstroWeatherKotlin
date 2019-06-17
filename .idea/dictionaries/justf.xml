@@ -2,11 +2,25 @@
   <dictionary name="justf">
     <words>
       <w>astro</w>
+      <w>astronomiczne</w>
+      <w>azymut</w>
+      <w>brak</w>
       <w>dnia</w>
+      <w>dostęp</w>
+      <w>dostępu</w>
+      <w>internetem</w>
+      <w>internetu</w>
+      <w>masz</w>
+      <w>mogą</w>
       <w>moonset</w>
+      <w>nieaktualne</w>
+      <w>połączenia</w>
+      <w>połączenie</w>
       <w>succes</w>
       <w>timezoneoffset</w>
       <w>weatherobject</w>
+      <w>zaktualizowane</w>
+      <w>zaktualizowano</w>
     </words>
   </dictionary>
 </component>

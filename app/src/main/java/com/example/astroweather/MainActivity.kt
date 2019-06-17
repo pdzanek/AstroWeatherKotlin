@@ -3,17 +3,12 @@ package com.example.astroweather
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
-import android.graphics.drawable.Icon
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
-import android.os.Build
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.preference.PreferenceManager
-import android.support.annotation.RequiresApi
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
@@ -70,8 +65,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         when (v!!.id) {
         }
     }
-
-    @RequiresApi(Build.VERSION_CODES.M)
     @SuppressLint("SimpleDateFormat")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
