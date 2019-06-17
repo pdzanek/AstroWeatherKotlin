@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent"
+                                             android:layout_height="match_parent"
+                                             android:background="@android:color/background_light"
+                                             android:orientation="vertical">
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" android:id="@+id/linearLayout"
+            app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="8dp">
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:text="@string/additional_information"
+                android:textAlignment="center"
+                android:textColor="@android:color/white"
+                android:textSize="28sp" android:id="@+id/labelExtendedWeather"/>
+        <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" android:layout_weight="1" android:layout_marginStart="4sp">
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4sp"
+                    android:text="@string/city_name"
+                    android:textSize="30sp" android:id="@+id/labelCityName" android:layout_weight="1"/>
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4sp"
+                    android:text="@string/cityname"
+                    android:textSize="22sp" android:id="@+id/tvCityName" android:layout_weight="1"/>
+        </TableRow>
+        <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" android:layout_weight="1" android:layout_marginStart="4sp">
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4sp"
+                    android:text="@string/wind_speed"
+                    android:textSize="30sp" android:id="@+id/labelWindSpeed" android:layout_weight="1"/>
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4sp"
+                    android:text="@string/wind_speed"
+                    android:textSize="22sp" android:id="@+id/tvWindSpeed" android:layout_weight="1"/>
+        </TableRow>
+        <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" android:layout_weight="1" android:layout_marginStart="4sp">
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4sp"
+                    android:text="@string/wind_deg"
+                    android:textSize="30sp" android:id="@+id/labelWindDeg" android:layout_weight="1"/>
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4sp"
+                    android:text="@string/wind_deg"
+                    android:textSize="22sp" android:id="@+id/tvWindDeg" android:layout_weight="1"/>
+        </TableRow>
+        <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" android:layout_weight="1" android:layout_marginStart="4sp">
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4sp"
+                    android:text="@string/visibility"
+                    android:textSize="30sp" android:id="@+id/labelVisibility" android:layout_weight="1"/>
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4sp"
+                    android:text="@string/visibility"
+                    android:textSize="22sp" android:id="@+id/tvVisibility" android:layout_weight="1"/>
+        </TableRow>
+        <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" android:layout_weight="1" android:layout_marginStart="4sp">
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4sp"
+                    android:text="@string/clouds"
+                    android:textSize="30sp" android:id="@+id/labelClouds" android:layout_weight="1"/>
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4sp"
+                    android:text="@string/clouds"
+                    android:textSize="22sp" android:id="@+id/tvClouds" android:layout_weight="1"/>
+        </TableRow>
+        <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" android:layout_weight="1" android:layout_marginStart="4sp">
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4sp"
+                    android:text="@string/humidity"
+                    android:textSize="30sp" android:id="@+id/labelHumidity" android:layout_weight="1"/>
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4sp"
+                    android:text="@string/humidity"
+                    android:textSize="22sp" android:id="@+id/tvHumidity" android:layout_weight="1"/>
+        </TableRow>
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

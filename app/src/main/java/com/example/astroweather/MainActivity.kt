@@ -36,18 +36,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var viewPagerWeather: ViewPager
     private var latitude = "0.0"
     private var longitude = "0.0"
-    private lateinit var sunriseTime: String
-    private lateinit var sunriseAzimuth: String
-    private lateinit var sunsetTime: String
-    private lateinit var sunsetAzimuth: String
-    private lateinit var twilightMorning: String
-    private lateinit var twilightEvening: String
-    private lateinit var moonriseTime: String
-    private lateinit var moonsetTime: String
-    private lateinit var nextNewMoon: String
-    private lateinit var nextFullMoon: String
-    private lateinit var moonState: String
-    private lateinit var lunarMonth: String
     private lateinit var astroInfo: AstroInfo
     private lateinit var myPagerAdapter: MyPagerAdapter
     private lateinit var myPagerAdapter600: MyPagerAdapter600
@@ -62,6 +50,20 @@ class MainActivity : AppCompatActivity() {
         var networkConnection: Boolean = false
         var shouldUpdateBasicWeatherFragment: Boolean = false
         var shouldUpdateExtendedWeatherFragment: Boolean = false
+        var shouldUpdateSunFragment: Boolean = false
+        var shouldUpdateMoonFragment: Boolean = false
+        lateinit var sunriseTime: String
+        lateinit var sunriseAzimuth: String
+        lateinit var sunsetTime: String
+        lateinit var sunsetAzimuth: String
+        lateinit var twilightMorning: String
+        lateinit var twilightEvening: String
+        lateinit var moonriseTime: String
+        lateinit var moonsetTime: String
+        lateinit var nextNewMoon: String
+        lateinit var nextFullMoon: String
+        lateinit var moonState: String
+        lateinit var lunarMonth: String
     }
 
     @SuppressLint("SimpleDateFormat")
@@ -143,6 +145,8 @@ class MainActivity : AppCompatActivity() {
         tvLatitude.text = latitude
         tvLongitude.text = longitude
         updateAstroValues(latitude, longitude)
+        shouldUpdateSunFragment=true
+        shouldUpdateMoonFragment=true
     }
 
     override fun onStart() {
@@ -245,6 +249,8 @@ class MainActivity : AppCompatActivity() {
                 timeSinceLastUpdate++
                 if (timeSinceLastUpdate >= updateTime * 60) {
                     updateAstroValues(latitude, longitude)
+                    shouldUpdateSunFragment=true
+                    shouldUpdateMoonFragment=true
                     Toast.makeText(this, "Zaktualizowano dane astronomiczne.", Toast.LENGTH_SHORT).show()
                     timeSinceLastUpdate = 0
                 }
@@ -257,7 +263,6 @@ class MainActivity : AppCompatActivity() {
             }
         })
     }
-
     private fun hasNetworkConnection(): Boolean {
         val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         networkConnection =

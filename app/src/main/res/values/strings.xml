@@ -33,4 +33,10 @@
     <string name="current_weather_image">current weather image</string>
     <string name="cityname">cityName</string>
     <string name="refresh">Refresh</string>
+    <string name="additional_information">Dodatkowe Informacje</string>
+    <string name="wind_speed">Szybkość Wiatru</string>
+    <string name="wind_deg">Kierunek Wiatru</string>
+    <string name="visibility">Widoczność</string>
+    <string name="clouds">Zachmurzenie</string>
+    <string name="humidity">Wilgotność</string>
 </resources>

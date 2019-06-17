@@ -13,7 +13,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/colorPrimary"
-                android:text="Dodatkowe Informacje"
+                android:text="@string/additional_information"
                 android:textAlignment="center"
                 android:textColor="@android:color/white"
                 android:textSize="35sp" android:id="@+id/labelExtendedWeather"/>
@@ -33,61 +33,61 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4sp"
-                android:text="Szybkość Wiatru"
+                android:text="@string/wind_speed"
                 android:textSize="34sp" android:id="@+id/labelWindSpeed"/>
         <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4sp"
-                android:text="Szybkość Wiatru"
+                android:text="@string/wind_speed"
                 android:textSize="24sp" android:id="@+id/tvWindSpeed"/>
         <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4sp"
-                android:text="Kierunek Wiatru"
+                android:text="@string/wind_deg"
                 android:textSize="34sp" android:id="@+id/labelWindDeg"/>
         <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4sp"
-                android:text="Kierunek Wiatru"
+                android:text="@string/wind_deg"
                 android:textSize="24sp" android:id="@+id/tvWindDeg"/>
         <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4sp"
-                android:text="Widoczność"
+                android:text="@string/visibility"
                 android:textSize="34sp" android:id="@+id/labelVisibility"/>
         <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4sp"
-                android:text="Widoczność"
+                android:text="@string/visibility"
                 android:textSize="24sp" android:id="@+id/tvVisibility"/>
         <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4sp"
-                android:text="Zachmurzenie"
+                android:text="@string/clouds"
                 android:textSize="34sp" android:id="@+id/labelClouds"/>
         <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4sp"
-                android:text="Zachmurzenie"
+                android:text="@string/clouds"
                 android:textSize="24sp" android:id="@+id/tvClouds"/>
         <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4sp"
-                android:text="Wilgotność"
+                android:text="@string/humidity"
                 android:textSize="34sp" android:id="@+id/labelHumidity"/>
         <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4sp"
-                android:text="Wilgotność"
+                android:text="@string/humidity"
                 android:textSize="24sp" android:id="@+id/tvHumidity"/>
     </LinearLayout>
 

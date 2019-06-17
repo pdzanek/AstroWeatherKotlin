@@ -66,18 +66,6 @@ class MyPagerAdapter(fragmentManager: FragmentManager) : FragmentPagerAdapter(fr
         return 5
     }
 
-    fun setTextViews() {
-        sunFragment.updateTextViews(
-            sunriseTime,
-            sunriseAzimuth,
-            sunsetTime,
-            sunsetAzimuth,
-            twilightMorning,
-            twilightEvening
-        )
-        moonFragment.updateTextViews(moonriseTime, moonsetTime, nextNewMoon, nextFullMoon, moonState, lunarMonth)
-    }
-
     fun setValues(
         sunriseTime: String,
         sunriseAzimuth: String,

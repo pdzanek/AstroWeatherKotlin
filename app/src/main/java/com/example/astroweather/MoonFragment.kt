@@ -6,6 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class MoonFragment : Fragment() {
     private var moonriseTime: String? = null
@@ -20,6 +23,7 @@ class MoonFragment : Fragment() {
     private lateinit var tvNextFullMoon: TextView
     private lateinit var tvMoonState: TextView
     private lateinit var tvLunarMonth: TextView
+    private var shouldCheckForUpdate: Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +35,11 @@ class MoonFragment : Fragment() {
             moonState = it.getString("moonState")
             lunarMonth = it.getString("lunarMonth")
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        shouldCheckForUpdate = false
     }
 
     override fun onCreateView(
@@ -47,8 +56,21 @@ class MoonFragment : Fragment() {
         tvLunarMonth = v.findViewById(R.id.tvLunarMonth)
         if ((moonriseTime != null) and (moonsetTime != null) && (nextNewMoon != null) and (nextFullMoon != null) && moonState != null && lunarMonth != null) {
             setTextViews()
+            checkForUpdates()
         }
         return v
+    }
+
+    private fun checkForUpdates() {
+        GlobalScope.launch {
+            while (shouldCheckForUpdate) {
+                if(MainActivity.shouldUpdateMoonFragment) {
+                    updateTextViews()
+                    MainActivity.shouldUpdateMoonFragment = false
+                }
+                delay(1000L)
+            }
+        }
     }
 
     private fun setTextViews() {
@@ -60,13 +82,13 @@ class MoonFragment : Fragment() {
         tvLunarMonth.text = lunarMonth
     }
 
-    fun updateTextViews(moonriseTime: String,moonsetTime: String,nextNewMoon: String,nextFullMoon: String,moonState: String,lunarMonth: String){
-        this.moonriseTime=moonriseTime
-        this.moonsetTime=moonsetTime
-        this.nextNewMoon=nextNewMoon
-        this.nextFullMoon=nextFullMoon
-        this.moonState=moonState
-        this.lunarMonth=lunarMonth
+    fun updateTextViews(){
+        this.moonriseTime=MainActivity.moonriseTime
+        this.moonsetTime=MainActivity.moonsetTime
+        this.nextNewMoon=MainActivity.nextNewMoon
+        this.nextFullMoon=MainActivity.nextFullMoon
+        this.moonState=MainActivity.moonState
+        this.lunarMonth=MainActivity.lunarMonth
         setTextViews()
     }
 

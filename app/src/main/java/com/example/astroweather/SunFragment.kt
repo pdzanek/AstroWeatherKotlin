@@ -6,6 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class SunFragment : Fragment() {
     private var sunriseTime: String? = null
@@ -20,6 +23,7 @@ class SunFragment : Fragment() {
     private lateinit var tvSunsetAzimuth: TextView
     private lateinit var tvTwilightMorning: TextView
     private lateinit var tvTwilightEvening: TextView
+    private var shouldCheckForUpdate: Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,7 +52,25 @@ class SunFragment : Fragment() {
         if(sunriseTime !=null && sunriseAzimuth!=null && sunsetTime!=null && sunsetAzimuth!=null && twilightMorning!=null && twilightEvening!=null) {
             setTextViews()
         }
+        checkForUpdates()
         return v
+    }
+
+    private fun checkForUpdates() {
+        GlobalScope.launch {
+            while (shouldCheckForUpdate) {
+                if(MainActivity.shouldUpdateSunFragment) {
+                    updateTextViews()
+                    MainActivity.shouldUpdateSunFragment = false
+                }
+                delay(1000L)
+            }
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        shouldCheckForUpdate = false
     }
 
     private fun setTextViews() {
@@ -60,13 +82,13 @@ class SunFragment : Fragment() {
         tvTwilightEvening.text = twilightEvening
     }
 
-    fun updateTextViews(sunriseTime: String,sunriseAzimuth: String,sunsetTime: String,sunsetAzimuth: String,twilightMorning: String,twilightEvening: String){
-        this.sunsetTime=sunriseTime
-        this.sunriseAzimuth=sunriseAzimuth
-        this.sunsetTime=sunsetTime
-        this.sunsetAzimuth=sunsetAzimuth
-        this.twilightMorning=twilightMorning
-        this.twilightEvening=twilightEvening
+    private fun updateTextViews(){
+        this.sunsetTime=MainActivity.sunriseTime
+        this.sunriseAzimuth=MainActivity.sunriseAzimuth
+        this.sunsetTime=MainActivity.sunsetTime
+        this.sunsetAzimuth=MainActivity.sunsetAzimuth
+        this.twilightMorning=MainActivity.twilightMorning
+        this.twilightEvening=MainActivity.twilightEvening
         setTextViews()
     }
 
