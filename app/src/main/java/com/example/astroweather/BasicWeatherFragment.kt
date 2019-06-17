@@ -1,5 +1,4 @@
 package com.example.astroweather
-
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -12,7 +11,6 @@ import com.example.astroweather.ApiController.WeatherService
 import com.example.astroweather.ApiController.key
 import WeatherData
 import android.widget.ImageView
-import android.widget.Toast
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
@@ -24,11 +22,14 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class BasicWeatherFragment : Fragment() {
+    private val PREFS_FILENAME = "BasicWeatherFragment"
     private var cityName: String? = null
     private var temp: Double? = null
     private var pressure: Int? = null
+    private var dt: Int? = null
     private var lon: String? = null
     private var lat: String? = null
+    private var icon: String? = null
     private lateinit var tvCityName: TextView
     private lateinit var tvLatLong: TextView
     private lateinit var tvTemperature: TextView
@@ -66,7 +67,7 @@ class BasicWeatherFragment : Fragment() {
     private fun setTextViews() {
         tvCityName.text = cityName
         tvLatLong.text = "$lat $lon"
-        tvTemperature.text = temp.toString() + " C"
+        tvTemperature.text = "%.2f".format(temp) + " C"
         tvPressure.text = pressure.toString() + " hPa"
     }
 
@@ -99,7 +100,6 @@ class BasicWeatherFragment : Fragment() {
             override fun onFailure(call: Call<WeatherData>, t: Throwable) {
                 Log.i("Retrofit", "failure")
             }
-
             override fun onResponse(call: Call<WeatherData>, response: Response<WeatherData>) {
                 if (response.code() == 200) {
                     weatherData = response.body()
@@ -112,6 +112,7 @@ class BasicWeatherFragment : Fragment() {
                         weatherData!!.main.temp,
                         weatherData!!.main.pressure
                     )
+                    writeSharedPreferences(weatherData?.weather?.get(0)?.icon, weatherData?.dt)
                     Picasso.get()
                         .load("https://openweathermap.org/img/w/" + weatherData?.weather?.get(0)?.icon + ".png")
                         .into(pic)
@@ -139,7 +140,17 @@ class BasicWeatherFragment : Fragment() {
     }
 
     private fun updateValues() {
-        updateFromNetwork()
+        if(MainActivity.networkConnection) {
+            updateFromSharedPreferences()
+            if(((System.currentTimeMillis() / 1000L).toInt()>dt!!.toInt()+7200) || MainActivity.firstLaunch) {
+                updateFromNetwork()
+                Log.i("updated from network", dt.toString())
+                Log.i("UTC", (System.currentTimeMillis() / 1000L).toString())
+            }
+        }
+        else{
+            updateFromSharedPreferences()
+        }
         GlobalScope.launch {
             while (shouldCheckForUpdate) {
                 if(MainActivity.shouldUpdateBasicWeatherFragment) {
@@ -150,4 +161,35 @@ class BasicWeatherFragment : Fragment() {
             }
         }
     }
+    fun writeSharedPreferences(icon: String?, dt: Int?){
+        val preferences = this.activity?.getSharedPreferences(PREFS_FILENAME,0)
+        val editor = preferences?.edit()
+        editor?.putString("cityName", cityName)
+        editor?.putString("lon", lon)
+        editor?.putString("lat", lat)
+        editor?.putFloat("temp",temp!!.toFloat())
+        editor?.putInt("pressure",pressure!!.toInt())
+        editor?.putString("icon",icon)
+        editor?.putInt("dt",dt!!.toInt())
+        editor?.apply()
+    }
+   private fun updateFromSharedPreferences(){
+       val preferences = this.activity?.getSharedPreferences(PREFS_FILENAME,0)
+       cityName=preferences!!.getString("cityName", "undefined")
+       lon=preferences.getString("lon", "0.0")
+       lat=preferences.getString("lat", "0.0")
+       temp= preferences.getFloat("temp", 0.0f).toDouble()
+       icon=preferences.getString("icon", "01d")
+       pressure=preferences.getInt("pressure",0)
+       dt=preferences.getInt("dt",0)
+       setTextViews()
+       if(MainActivity.networkConnection){
+           Picasso.get()
+               .load("https://openweathermap.org/img/w/$icon.png")
+               .into(pic)
+           pic.layoutParams.height = 500
+           pic.layoutParams.width = 500
+           pic.visibility = View.VISIBLE
+       }
+   }
 }

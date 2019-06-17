@@ -24,7 +24,7 @@
                 android:text="@string/basic_weather"
                 android:textAlignment="center"
                 android:textColor="@android:color/white"
-                android:textSize="38sp" android:id="@+id/labelBasicWeather"
+                android:textSize="38sp" android:id="@+id/labelExtendedWeather"
         />
         <TextView
                 android:layout_width="match_parent"

@@ -1,14 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             tools:context=".ExtendedWeatherFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="match_parent"
+                                             android:background="@android:color/background_light"
+                                             android:orientation="vertical">
+    <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/hello_blank_fragment"/>
+            android:layout_height="match_parent" android:id="@+id/linearLayout"
+    >
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:text="Dodatkowe Informacje"
+                android:textAlignment="center"
+                android:textColor="@android:color/white"
+                android:textSize="35sp" android:id="@+id/labelExtendedWeather"/>
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4sp"
+                android:text="@string/city_name"
+                android:textSize="34sp" android:id="@+id/labelCityName"/>
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4sp"
+                android:text="@string/cityname"
+                android:textSize="24sp" android:id="@+id/tvCityName"/>
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4sp"
+                android:text="Szybkość Wiatru"
+                android:textSize="34sp" android:id="@+id/labelWindSpeed"/>
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4sp"
+                android:text="Szybkość Wiatru"
+                android:textSize="24sp" android:id="@+id/tvWindSpeed"/>
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4sp"
+                android:text="Kierunek Wiatru"
+                android:textSize="34sp" android:id="@+id/labelWindDeg"/>
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4sp"
+                android:text="Kierunek Wiatru"
+                android:textSize="24sp" android:id="@+id/tvWindDeg"/>
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4sp"
+                android:text="Widoczność"
+                android:textSize="34sp" android:id="@+id/labelVisibility"/>
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4sp"
+                android:text="Widoczność"
+                android:textSize="24sp" android:id="@+id/tvVisibility"/>
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4sp"
+                android:text="Zachmurzenie"
+                android:textSize="34sp" android:id="@+id/labelClouds"/>
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4sp"
+                android:text="Zachmurzenie"
+                android:textSize="24sp" android:id="@+id/tvClouds"/>
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4sp"
+                android:text="Wilgotność"
+                android:textSize="34sp" android:id="@+id/labelHumidity"/>
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4sp"
+                android:text="Wilgotność"
+                android:textSize="24sp" android:id="@+id/tvHumidity"/>
+    </LinearLayout>
 
-</FrameLayout>
+</android.support.constraint.ConstraintLayout>

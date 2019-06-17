@@ -57,9 +57,11 @@ class MainActivity : AppCompatActivity() {
     private lateinit var onlineIcon: Drawable
 
     companion object {
+        var firstLaunch =false
         private lateinit var myWeatherAdapter: MyWeatherAdapter
         var networkConnection: Boolean = false
         var shouldUpdateBasicWeatherFragment: Boolean = false
+        var shouldUpdateExtendedWeatherFragment: Boolean = false
     }
 
     @SuppressLint("SimpleDateFormat")
@@ -83,11 +85,6 @@ class MainActivity : AppCompatActivity() {
         updateAstroValues(latitude, longitude)
         viewPager = findViewById(R.id.viewPager)
 
-        if (hasNetworkConnection()) {
-            Toast.makeText(this, "Dostęp do internetu! Dane zaktualizowane.", Toast.LENGTH_LONG).show()
-        } else {
-            Toast.makeText(this, "Brak dostępu do internetu, dane mogą być nieaktualne", Toast.LENGTH_LONG).show()
-        }
         if (this.resources.configuration.smallestScreenWidthDp >= 600) {
             myPagerAdapter600 = MyPagerAdapter600(supportFragmentManager)
             myPagerAdapter600.setValues(
@@ -125,6 +122,18 @@ class MainActivity : AppCompatActivity() {
                 lunarMonth
             )
             viewPager.adapter = myPagerAdapter
+        }
+        if (hasNetworkConnection()) {
+            if(firstLaunch){
+                firstLaunch=false
+                val preferences = PreferenceManager.getDefaultSharedPreferences(this)
+                val editor = preferences.edit()
+                editor.putBoolean("firstLaunch", firstLaunch)
+                editor.apply()
+            }
+            Toast.makeText(this, "Dostęp do internetu! Dane są aktualne", Toast.LENGTH_LONG).show()
+        } else {
+            Toast.makeText(this, "Brak dostępu do internetu, dane mogą być nieaktualne", Toast.LENGTH_LONG).show()
         }
     }
 
@@ -190,7 +199,8 @@ class MainActivity : AppCompatActivity() {
             R.id.refresh -> {
                 if (networkConnection) {
                     shouldUpdateBasicWeatherFragment =true
-                    Toast.makeText(this, "Dostęp do internetu! Dane zaktualizowane.", Toast.LENGTH_LONG).show()
+                    shouldUpdateExtendedWeatherFragment=true
+                    Toast.makeText(this, "Dostęp do internetu. Dane zaktualizowane!", Toast.LENGTH_LONG).show()
                 } else {
                     Toast.makeText(this, "Nie masz połączenia z internetem!", Toast.LENGTH_SHORT).show()
                 }
@@ -225,6 +235,7 @@ class MainActivity : AppCompatActivity() {
         latitude = preferences.getString("latitude", "0.0")
         longitude = preferences.getString("longitude", "0.0")
         updateTime = preferences.getInt("updateTime", 1)
+        firstLaunch = preferences.getBoolean("firstLaunch", true)
     }
 
     @SuppressLint("SimpleDateFormat")
