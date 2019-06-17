@@ -30,4 +30,7 @@
     <string name="temperature">Temperatura</string>
     <string name="pressure">Ciśnienie</string>
     <string name="has_connection">Has connection</string>
+    <string name="current_weather_image">current weather image</string>
+    <string name="cityname">cityName</string>
+    <string name="refresh">Refresh</string>
 </resources>

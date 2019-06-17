@@ -14,7 +14,6 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.TextView
 import kotlinx.coroutines.*
 import java.text.DateFormat
@@ -25,7 +24,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import com.example.astroweather.WeatherObject as WeatherObject
 
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS", "DEPRECATION")
-class MainActivity : AppCompatActivity(), View.OnClickListener {
+class MainActivity : AppCompatActivity() {
     private var updateTime = 1
     private lateinit var textClock: TextView
     private var shouldUpdateThreadRun: Boolean = true
@@ -49,7 +48,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var nextFullMoon: String
     private lateinit var moonState: String
     private lateinit var lunarMonth: String
-    private var networkConnection: Boolean = false
     private lateinit var astroInfo: AstroInfo
     private lateinit var myPagerAdapter: MyPagerAdapter
     private lateinit var myPagerAdapter600: MyPagerAdapter600
@@ -57,20 +55,19 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var menu: Menu
     private lateinit var offlineIcon: Drawable
     private lateinit var onlineIcon: Drawable
-    companion object{
+
+    companion object {
         private lateinit var myWeatherAdapter: MyWeatherAdapter
+        var networkConnection: Boolean = false
+        var shouldUpdateBasicWeatherFragment: Boolean = false
     }
 
-    override fun onClick(v: View?) {
-        when (v!!.id) {
-        }
-    }
     @SuppressLint("SimpleDateFormat")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        offlineIcon = resources.getDrawable( R.drawable.offline)
-        onlineIcon = resources.getDrawable( R.drawable.online)
+        offlineIcon = resources.getDrawable(R.drawable.offline)
+        onlineIcon = resources.getDrawable(R.drawable.online)
         setSupportActionBar(toolbar)
         textClock = findViewById(R.id.textClock)
         readSharedPreferences()
@@ -130,6 +127,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             viewPager.adapter = myPagerAdapter
         }
     }
+
     override fun onRestart() {
         super.onRestart()
         readSharedPreferences()
@@ -162,17 +160,16 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
-        this.menu=menu
+        this.menu = menu
         return true
     }
 
-    private fun updateAppBarIcon(isOnline: Boolean){
+    private fun updateAppBarIcon(isOnline: Boolean) {
         menuItem = menu.findItem(R.id.has_connection)
-        if(isOnline) {
-            menuItem.icon=onlineIcon
-        }
-        else{
-            menuItem.icon=offlineIcon
+        if (isOnline) {
+            menuItem.icon = onlineIcon
+        } else {
+            menuItem.icon = offlineIcon
         }
     }
 
@@ -185,8 +182,16 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             R.id.has_connection -> {
                 if (networkConnection) {
                     Toast.makeText(this, "Masz połączenie z internetem!", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(this, "Nie masz połączenia z internetem!", Toast.LENGTH_SHORT).show()
                 }
-                else{
+                true
+            }
+            R.id.refresh -> {
+                if (networkConnection) {
+                    shouldUpdateBasicWeatherFragment =true
+                    Toast.makeText(this, "Dostęp do internetu! Dane zaktualizowane.", Toast.LENGTH_LONG).show()
+                } else {
                     Toast.makeText(this, "Nie masz połączenia z internetem!", Toast.LENGTH_SHORT).show()
                 }
                 true

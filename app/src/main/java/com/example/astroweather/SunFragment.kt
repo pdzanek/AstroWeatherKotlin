@@ -1,7 +1,5 @@
 package com.example.astroweather
 
-import android.content.Context
-import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -16,7 +14,6 @@ class SunFragment : Fragment() {
     private var sunsetAzimuth: String? = null
     private var twilightMorning: String? = null
     private var twilightEvening: String? = null
-    private var listener: OnFragmentInteractionListener? = null
     private lateinit var tvSunriseTime: TextView
     private lateinit var tvSunriseAzimuth: TextView
     private lateinit var tvSunsetTime: TextView
@@ -54,29 +51,6 @@ class SunFragment : Fragment() {
         return v
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    fun onButtonPressed(uri: Uri) {
-        listener?.onFragmentInteraction(uri)
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        if (context is OnFragmentInteractionListener) {
-            listener = context
-        } else {
-            //throw RuntimeException("$context must implement OnFragmentInteractionListener")
-        }
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        listener = null
-    }
-    interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        fun onFragmentInteraction(uri: Uri)
-    }
-
     private fun setTextViews() {
         tvSunriseTime.text = sunriseTime
         tvSunriseAzimuth.text = sunriseAzimuth
@@ -85,6 +59,7 @@ class SunFragment : Fragment() {
         tvTwilightMorning.text = twilightMorning
         tvTwilightEvening.text = twilightEvening
     }
+
     fun updateTextViews(sunriseTime: String,sunriseAzimuth: String,sunsetTime: String,sunsetAzimuth: String,twilightMorning: String,twilightEvening: String){
         this.sunsetTime=sunriseTime
         this.sunriseAzimuth=sunriseAzimuth

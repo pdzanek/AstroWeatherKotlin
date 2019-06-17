@@ -11,4 +11,9 @@
           android:orderInCategory="50"
           android:icon="@drawable/offline"
           app:showAsAction="ifRoom"/>
+    <item android:id="@+id/refresh"
+          android:title="@string/refresh"
+          android:orderInCategory="0"
+          android:icon="@drawable/refresh_icon"
+          app:showAsAction="ifRoom"/>
 </menu>

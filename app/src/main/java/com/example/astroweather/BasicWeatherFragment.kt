@@ -11,6 +11,12 @@ import android.widget.TextView
 import com.example.astroweather.ApiController.WeatherService
 import com.example.astroweather.ApiController.key
 import WeatherData
+import android.widget.ImageView
+import android.widget.Toast
+import com.squareup.picasso.Picasso
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -28,6 +34,8 @@ class BasicWeatherFragment : Fragment() {
     private lateinit var tvTemperature: TextView
     private lateinit var tvPressure: TextView
     private var weatherData: WeatherData? = null
+    private lateinit var pic: ImageView
+    private var shouldCheckForUpdate: Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,27 +43,35 @@ class BasicWeatherFragment : Fragment() {
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        shouldCheckForUpdate = false
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val v =  inflater.inflate(R.layout.fragment_basic_weather, container, false)
+        val v = inflater.inflate(R.layout.fragment_basic_weather, container, false)
         tvCityName = v.findViewById(R.id.tvCityName)
         tvLatLong = v.findViewById(R.id.tvLatLong)
         tvTemperature = v.findViewById(R.id.tvTemperature)
         tvPressure = v.findViewById(R.id.tvPressure)
-        updateFromNetwork()
+        pic = v.findViewById(R.id.imageView)
+        updateValues()
         return v
     }
+
     @SuppressLint("SetTextI18n")
     private fun setTextViews() {
         tvCityName.text = cityName
         tvLatLong.text = "$lat $lon"
-        tvTemperature.text=temp.toString()+" C"
-        tvPressure.text=pressure.toString()+" hPa"
+        tvTemperature.text = temp.toString() + " C"
+        tvPressure.text = pressure.toString() + " hPa"
     }
-    fun updateTextViews(cityName: String, lon: String, lat: String, temp: Double?, pressure: Int?){
-        this.cityName=cityName
+
+    fun updateTextViews(cityName: String, lon: String, lat: String, temp: Double?, pressure: Int?) {
+        this.cityName = cityName
         this.temp = temp
         this.lon = lon
         this.lat = lat
@@ -72,43 +88,66 @@ class BasicWeatherFragment : Fragment() {
             return bwf
         }
     }
-    private fun updateFromNetwork(){
+
+    private fun updateFromNetwork() {
         val retrofit = Retrofit.Builder()
             .baseUrl("https://api.openweathermap.org/data/2.5/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         val weatherService = retrofit.create(WeatherService::class.java)
-        weatherService.groupList(("lodz"),"metric", key).enqueue(object: Callback<WeatherData> {
+        weatherService.groupList(("Łódź"), "metric", key).enqueue(object : Callback<WeatherData> {
             override fun onFailure(call: Call<WeatherData>, t: Throwable) {
                 Log.i("Retrofit", "failure")
             }
+
             override fun onResponse(call: Call<WeatherData>, response: Response<WeatherData>) {
-                if(response.code()==200){
+                if (response.code() == 200) {
                     weatherData = response.body()
-                    weatherData?.main?.temp=weatherData?.main?.temp!!
+                    weatherData?.main?.temp = weatherData?.main?.temp!!
                     setUpObject(weatherData!!)
-                    Log.i("City",weatherData!!.name)
-                    Log.i("lon",weatherData?.coord?.lon.toString())
-                    Log.i("lat",weatherData?.coord?.lat.toString())
-                    Log.i("Temp",weatherData!!.main.temp.toString())
-                    updateTextViews(weatherData!!.name,weatherData?.coord?.lon.toString(),weatherData?.coord?.lat.toString(), weatherData!!.main.temp,
-                        weatherData!!.main.pressure)
+                    updateTextViews(
+                        weatherData!!.name,
+                        weatherData?.coord?.lon.toString(),
+                        weatherData?.coord?.lat.toString(),
+                        weatherData!!.main.temp,
+                        weatherData!!.main.pressure
+                    )
+                    Picasso.get()
+                        .load("https://openweathermap.org/img/w/" + weatherData?.weather?.get(0)?.icon + ".png")
+                        .into(pic)
+                    pic.layoutParams.height = 500
+                    pic.layoutParams.width = 500
+                    pic.visibility = View.VISIBLE
                 }
             }
         })
     }
-    private fun setUpObject(weatherobject: WeatherData){
-        WeatherObject.base=weatherobject.base
-        WeatherObject.clouds=weatherobject.clouds
-        WeatherObject.cod=weatherobject.cod
-        WeatherObject.coord=weatherobject.coord
-        WeatherObject.dt=weatherobject.dt
-        WeatherObject.main=weatherobject.main
-        WeatherObject.name=weatherobject.name
-        WeatherObject.sys=weatherobject.sys
-        WeatherObject.timezone=weatherobject.timezone
-        WeatherObject.visibility=weatherobject.visibility
-        WeatherObject.weather=weatherobject.weather
-        WeatherObject.wind=weatherobject.wind
+
+    private fun setUpObject(weatherobject: WeatherData) {
+        WeatherObject.base = weatherobject.base
+        WeatherObject.clouds = weatherobject.clouds
+        WeatherObject.cod = weatherobject.cod
+        WeatherObject.coord = weatherobject.coord
+        WeatherObject.dt = weatherobject.dt
+        WeatherObject.main = weatherobject.main
+        WeatherObject.name = weatherobject.name
+        WeatherObject.sys = weatherobject.sys
+        WeatherObject.timezone = weatherobject.timezone
+        WeatherObject.visibility = weatherobject.visibility
+        WeatherObject.weather = weatherobject.weather
+        WeatherObject.wind = weatherobject.wind
+    }
+
+    private fun updateValues() {
+        updateFromNetwork()
+        GlobalScope.launch {
+            while (shouldCheckForUpdate) {
+                if(MainActivity.shouldUpdateBasicWeatherFragment) {
+                    updateFromNetwork()
+                    MainActivity.shouldUpdateBasicWeatherFragment = false
+                }
+                delay(1000L)
+            }
+        }
     }
 }

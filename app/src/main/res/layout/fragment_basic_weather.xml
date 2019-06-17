@@ -1,74 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="@android:color/background_light"
-              android:orientation="vertical"
-              >
-    <TextView
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="match_parent"
+                                             android:background="@android:color/background_light"
+                                             android:orientation="vertical">
+    <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimaryDark"
-            android:text="@string/basic_weather"
-            android:textAlignment="center"
-            android:textColor="@android:color/white"
-            android:textSize="40sp" android:id="@+id/labelBasicWeather"/>
+            android:layout_height="match_parent" android:id="@+id/linearLayout2"
+    >
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimaryDark"
+                android:text="@string/basic_weather"
+                android:textAlignment="center"
+                android:textColor="@android:color/white"
+                android:textSize="38sp" android:id="@+id/labelBasicWeather"/>
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4sp"
+                android:text="@string/city_name"
+                android:textSize="34sp" android:id="@+id/labelCityName"/>
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4sp"
+                android:text="@string/cityname"
+                android:textSize="24sp" android:id="@+id/tvCityName"/>
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4sp"
+                android:text="@string/lat_and_long"
+                android:textSize="34sp" android:id="@+id/labelLatLong"/>
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4sp"
+                android:text="@string/lat_and_long"
+                android:textSize="24sp" android:id="@+id/tvLatLong"/>
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4sp"
+                android:text="@string/temperature"
+                android:textSize="34sp" android:id="@+id/labelTemperature"/>
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4sp"
+                android:text="@string/temperature"
+                android:textSize="24sp" android:id="@+id/tvTemperature"/>
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4sp"
+                android:text="@string/pressure"
+                android:textSize="34sp" android:id="@+id/labelPressure"/>
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4sp"
+                android:text="@string/pressure"
+                android:textSize="24sp" android:id="@+id/tvPressure"/>
+    </LinearLayout>
+    <ImageView
+            android:layout_width="395dp"
+            android:layout_height="wrap_content" app:srcCompat="@drawable/pogodny_prezenter"
+            android:id="@+id/imageView"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="8dp" app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="100dp" android:layout_marginStart="4dp"
+            android:visibility="invisible" android:contentDescription="@string/current_weather_image"/>
 
-    <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
-            android:text="@string/city_name"
-            android:textSize="34sp" android:id="@+id/labelCityName"/>
-
-    <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
-            android:text="cityName"
-            android:textSize="24sp" tools:ignore="HardcodedText" android:id="@+id/tvCityName"/>
-
-    <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
-            android:text="@string/lat_and_long"
-            android:textSize="34sp" android:id="@+id/labelLatLong"/>
-
-    <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
-            android:text="lat and long"
-            android:textSize="24sp" tools:ignore="HardcodedText" android:id="@+id/tvLatLong"/>
-
-    <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
-            android:text="@string/temperature"
-            android:textSize="34sp" android:id="@+id/labelTemperature"/>
-
-    <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
-            android:text="temperature"
-            android:textSize="24sp" tools:ignore="HardcodedText" android:id="@+id/tvTemperature"/>
-
-    <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
-            android:text="@string/pressure"
-            android:textSize="34sp" android:id="@+id/labelPressure"/>
-
-    <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
-            android:text="pressure"
-            android:textSize="24sp" tools:ignore="HardcodedText" android:id="@+id/tvPressure"/>
-
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>

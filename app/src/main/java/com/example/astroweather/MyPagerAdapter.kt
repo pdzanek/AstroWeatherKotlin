@@ -6,7 +6,7 @@ import android.support.v4.app.FragmentPagerAdapter
 class MyPagerAdapter(fragmentManager: FragmentManager) : FragmentPagerAdapter(fragmentManager) {
     private lateinit var moonFragment: MoonFragment
     lateinit var sunFragment: SunFragment
-    lateinit var basicWeatherFragment: BasicWeatherFragment
+    private var basicWeatherFragment: BasicWeatherFragment? = null
     lateinit var extendedWeatherFragment: ExtendedWeatherFragment
     lateinit var forecastFragment: ForecastFragment
     private lateinit var sunriseTime: String
@@ -47,15 +47,15 @@ class MyPagerAdapter(fragmentManager: FragmentManager) : FragmentPagerAdapter(fr
                 return moonFragment
             }
             2 -> {
-                basicWeatherFragment = BasicWeatherFragment()
+                basicWeatherFragment = BasicWeatherFragment.newInstance()
                 return basicWeatherFragment
             }
             3 -> {
-                extendedWeatherFragment = ExtendedWeatherFragment()
+                extendedWeatherFragment = ExtendedWeatherFragment.newInstance()
                 return extendedWeatherFragment
             }
             4 -> {
-                forecastFragment = ForecastFragment()
+                forecastFragment = ForecastFragment.newInstance()
                 return forecastFragment
             }
         }
