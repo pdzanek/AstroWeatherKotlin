@@ -180,8 +180,5 @@ class ExtendedWeatherFragment : Fragment() {
         humidity=preferences.getString("humidity","0")
         dt=preferences.getInt("dt",0)
         setTextViews()
-        if(MainActivity.networkConnection){
-            Log.i("eeee", "eeee")
-        }
     }
 }

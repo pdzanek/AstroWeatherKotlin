@@ -10,5 +10,5 @@ interface WeatherService{
     @GET("weather?")
     fun groupList(@Query("q") name: String, @Query("units") units: String, @Query("APIkey") key: String): Call<WeatherData>
     @GET("forecast?")
-    fun getForecast(@Query("q") name: String,@Query("APIkey") key:String, @Query("cnt") cnt: Int): Call<ForecastData>
+    fun getForecast(@Query("q") name: String,@Query("APIkey") key:String, @Query("units") units: String, @Query("cnt") cnt: Int): Call<ForecastData>
 }

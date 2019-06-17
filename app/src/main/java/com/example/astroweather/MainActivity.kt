@@ -50,6 +50,7 @@ class MainActivity : AppCompatActivity() {
         var networkConnection: Boolean = false
         var shouldUpdateBasicWeatherFragment: Boolean = false
         var shouldUpdateExtendedWeatherFragment: Boolean = false
+        var shouldUpdateForecastFragment: Boolean = false
         var shouldUpdateSunFragment: Boolean = false
         var shouldUpdateMoonFragment: Boolean = false
         lateinit var sunriseTime: String
@@ -147,6 +148,7 @@ class MainActivity : AppCompatActivity() {
         updateAstroValues(latitude, longitude)
         shouldUpdateSunFragment=true
         shouldUpdateMoonFragment=true
+        shouldUpdateForecastFragment=true
     }
 
     override fun onStart() {
@@ -204,6 +206,7 @@ class MainActivity : AppCompatActivity() {
                 if (networkConnection) {
                     shouldUpdateBasicWeatherFragment =true
                     shouldUpdateExtendedWeatherFragment=true
+                    shouldUpdateForecastFragment=true
                     Toast.makeText(this, "Dostęp do internetu. Dane zaktualizowane!", Toast.LENGTH_LONG).show()
                 } else {
                     Toast.makeText(this, "Nie masz połączenia z internetem!", Toast.LENGTH_SHORT).show()

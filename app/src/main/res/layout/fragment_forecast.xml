@@ -7,10 +7,10 @@
     <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/forecast" android:textSize="30sp" android:textAlignment="center"/>
-    <ImageView
-            android:src="@drawable/pogodny_prezenter"
+            android:text="@string/forecast" android:textSize="38sp" android:textAlignment="center"
+            android:background="@color/colorAccent"/>
+    <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:id="@+id/imageView" android:contentDescription="@string/pogodny_prezenter"/>
+            android:layout_height="match_parent" android:id="@+id/recyclerView"/>
 
 </LinearLayout>
