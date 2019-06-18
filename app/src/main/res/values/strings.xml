@@ -39,4 +39,5 @@
     <string name="visibility">Widoczność</string>
     <string name="clouds">Zachmurzenie</string>
     <string name="humidity">Wilgotność</string>
+    <string name="date">Data</string>
 </resources>

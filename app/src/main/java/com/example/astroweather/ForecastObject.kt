@@ -3,8 +3,9 @@ package com.example.astroweather
 import com.google.gson.annotations.SerializedName
 import ForecastItem
 import City
+import java.io.Serializable
 
-object ForecastObject {
+object ForecastObject: Serializable {
     @SerializedName("cod")
     var cod: Int? = null
     @SerializedName("message")

@@ -12,7 +12,7 @@ import ForecastData
 import ForecastItem
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.widget.ListView
+import com.google.gson.Gson
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -26,7 +26,6 @@ class ForecastFragment : Fragment() {
     private val PREFS_FILENAME = "ForecastFragment"
     private var forecastData: ForecastData? = null
     private var shouldCheckForUpdate: Boolean = true
-    var weatherForecast: ForecastData? = null
     lateinit var recyclerView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,6 +56,10 @@ class ForecastFragment : Fragment() {
         if (MainActivity.networkConnection) {
             updateFromNetwork()
         }
+        else{
+            getSerializedObject()
+            recyclerView.adapter= context?.let { ForecastAdapter(it, forecastData!!.list) }
+        }
         GlobalScope.launch {
             while (shouldCheckForUpdate) {
                 if (MainActivity.shouldUpdateForecastFragment) {
@@ -69,10 +72,6 @@ class ForecastFragment : Fragment() {
     }
 
     private fun setTextViews() {
-    }
-
-    fun updateTextViews() {
-        setTextViews()
     }
 
     companion object {
@@ -108,6 +107,7 @@ class ForecastFragment : Fragment() {
                         Log.i("pressure",ForecastItem.main.pressure.toString())
                     }
                     recyclerView.adapter= context?.let { ForecastAdapter(it, forecastData!!.list) }
+                    serializeObject()
                 }
             }
         })
@@ -117,10 +117,10 @@ class ForecastFragment : Fragment() {
         var forecastList: List<ForecastItem> = ArrayList()
         var i = 8
         while (i < list.size) {
-            forecastList = forecastList + list[i-2] //15:00 for every day
+            forecastList = forecastList + list[i-1]
             i += 8
         }
-        forecastList = forecastList + list[list.size-2]
+        forecastList = forecastList + list[list.size-1]
         return forecastList
     }
 
@@ -130,5 +130,19 @@ class ForecastFragment : Fragment() {
         ForecastObject.cod = forecastData.cod
         ForecastObject.message = ForecastObject.message
         ForecastObject.list = forecastData.list
+    }
+    private fun serializeObject(){
+        val preferences = this.activity?.getSharedPreferences(PREFS_FILENAME,0)
+        val editor = preferences?.edit()
+        val gson = Gson()
+        val json = gson.toJson(forecastData)
+        editor?.putString("SerializableObject", json)
+        editor?.apply()
+    }
+    private fun getSerializedObject(){
+        val preferences = this.activity?.getSharedPreferences(PREFS_FILENAME,0)
+        val gson = Gson()
+        val json = preferences?.getString("SerializableObject", "")
+        forecastData = gson.fromJson<ForecastData>(json, ForecastData::class.java)
     }
 }
