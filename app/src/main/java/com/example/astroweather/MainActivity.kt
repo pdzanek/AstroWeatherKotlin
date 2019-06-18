@@ -34,8 +34,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var dateTime: String
     private lateinit var viewPager: ViewPager
     private lateinit var viewPagerWeather: ViewPager
-    private var latitude = "0.0"
-    private var longitude = "0.0"
     private lateinit var astroInfo: AstroInfo
     private lateinit var myPagerAdapter: MyPagerAdapter
     private lateinit var myPagerAdapter600: MyPagerAdapter600
@@ -65,6 +63,9 @@ class MainActivity : AppCompatActivity() {
         lateinit var nextFullMoon: String
         lateinit var moonState: String
         lateinit var lunarMonth: String
+        var cityName = "Łódź"
+        var latitude = "0.0"
+        var longitude = "0.0"
     }
 
     @SuppressLint("SimpleDateFormat")
@@ -146,9 +147,25 @@ class MainActivity : AppCompatActivity() {
         tvLatitude.text = latitude
         tvLongitude.text = longitude
         updateAstroValues(latitude, longitude)
-        shouldUpdateSunFragment=true
-        shouldUpdateMoonFragment=true
+        shouldUpdateBasicWeatherFragment=true
+        shouldUpdateExtendedWeatherFragment=true
         shouldUpdateForecastFragment=true
+        GlobalScope.launch {
+                delay(1500L)
+
+            updateAstroValues(latitude, longitude)
+            runOnUiThread {
+                tvLatitude.text = latitude
+                tvLongitude.text = longitude
+                val preferences = PreferenceManager.getDefaultSharedPreferences(applicationContext)
+                val editor = preferences.edit()
+                editor.putString("latitude", latitude)
+                editor.putString("longitude", longitude)
+                editor.apply()
+            }
+            shouldUpdateSunFragment = true
+            shouldUpdateMoonFragment = true
+        }
     }
 
     override fun onStart() {
@@ -243,6 +260,7 @@ class MainActivity : AppCompatActivity() {
         longitude = preferences.getString("longitude", "0.0")
         updateTime = preferences.getInt("updateTime", 1)
         firstLaunch = preferences.getBoolean("firstLaunch", true)
+        cityName = preferences.getString("cityName", "Łódź")
     }
 
     @SuppressLint("SimpleDateFormat")

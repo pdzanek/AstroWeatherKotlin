@@ -74,12 +74,14 @@ class SunFragment : Fragment() {
     }
 
     private fun setTextViews() {
-        tvSunriseTime.text = sunriseTime
-        tvSunriseAzimuth.text = sunriseAzimuth
-        tvSunsetTime.text = sunsetTime
-        tvSunsetAzimuth.text = sunsetAzimuth
-        tvTwilightMorning.text = twilightMorning
-        tvTwilightEvening.text = twilightEvening
+        activity?.runOnUiThread {
+            tvSunriseTime.text = sunriseTime
+            tvSunriseAzimuth.text = sunriseAzimuth
+            tvSunsetTime.text = sunsetTime
+            tvSunsetAzimuth.text = sunsetAzimuth
+            tvTwilightMorning.text = twilightMorning
+            tvTwilightEvening.text = twilightEvening
+        }
     }
 
     private fun updateTextViews(){

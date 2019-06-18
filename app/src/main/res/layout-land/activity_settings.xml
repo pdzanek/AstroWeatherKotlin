@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".Settings">
+
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:orientation="vertical">
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:orientation="vertical"
+            >
+
+                <TextView
+                        android:id="@+id/labelMenu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/settings"
+                        android:textAlignment="textStart"
+                        android:textSize="36sp"/>
+
+                <TextView
+                        android:id="@+id/labelOwnLocation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Podaj lokalizacje:"
+                        android:textAlignment="viewStart"
+                        android:textSize="18sp"/>
+
+                <EditText
+                        android:id="@+id/editLatitude"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:hint="@string/latitude"
+                        android:inputType="numberSigned|numberDecimal"
+                        android:textAlignment="viewStart"
+                        android:textSize="14sp"/>
+
+                <EditText
+                        android:id="@+id/editLongitude"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:hint="@string/longitude"
+                        android:inputType="numberSigned|numberDecimal"
+                        android:textAlignment="viewStart"
+                        android:textSize="14sp"/>
+
+                <TextView
+                        android:id="@+id/labelSetTime"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/select_update_time"
+                        android:textAlignment="viewStart"
+                        android:textSize="18sp"/>
+
+                <Spinner
+                        android:id="@+id/spinnerTime"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:dropDownWidth="wrap_content"
+                        android:spinnerMode="dropdown"
+                        android:textAlignment="viewStart"
+                        android:visibility="visible"/>
+
+                <TextView
+                        android:text="Wybierz miasto dla którego chcesz pobierać dane pogodowe:"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:id="@+id/labelSetCity" android:textSize="18sp"/>
+                <Spinner
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:id="@+id/spinnerCity"
+                        android:textAlignment="viewStart"
+                        android:spinnerMode="dropdown"/>
+                <TextView
+                        android:text="Wpisz nazwę miasta w polu poniżej aby dodać do listy"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:id="@+id/labelTemptation" android:textSize="18sp"/>
+                <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPersonName"
+                        android:ems="10"
+                        android:id="@+id/editCity" android:hint="Wpisz nazwę "/>
+                <Button
+                        android:text="Dodaj Miasto Do Ulubionych"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:id="@+id/buttonAddCity" android:onClick="onClick"/>
+                <Button
+                        android:id="@+id/buttonSaveAndExit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/exit_and_save" android:onClick="onClick"/>
+
+                <Button
+                        android:id="@+id/buttonExitWithoutSaving"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/exit_without_saving" android:onClick="onClick"/>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</android.support.constraint.ConstraintLayout>

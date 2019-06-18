@@ -90,7 +90,7 @@ class ForecastFragment : Fragment() {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         val weatherService = retrofit.create(WeatherService::class.java)
-        weatherService.getForecast("Łódź", key, "metric",40).enqueue(object : Callback<ForecastData> {
+        weatherService.getForecast(MainActivity.cityName, key, "metric",40).enqueue(object : Callback<ForecastData> {
             override fun onFailure(call: Call<ForecastData>, t: Throwable) {
                 Log.i("Retrofit", "failure forecast")
             }
@@ -100,12 +100,6 @@ class ForecastFragment : Fragment() {
                     forecastData = response.body()
                     setUpObject(forecastData!!)
                     forecastData!!.list = setUpList(forecastData!!.list)
-                    for (ForecastItem in forecastData!!.list){
-                        Log.i("dt_txt",ForecastItem.dt_txt)
-                        Log.i("temp",ForecastItem.main.temp.toString())
-                        Log.i("humidity",ForecastItem.main.humidity.toString())
-                        Log.i("pressure",ForecastItem.main.pressure.toString())
-                    }
                     recyclerView.adapter= context?.let { ForecastAdapter(it, forecastData!!.list) }
                     serializeObject()
                 }

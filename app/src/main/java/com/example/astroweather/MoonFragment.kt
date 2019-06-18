@@ -74,15 +74,17 @@ class MoonFragment : Fragment() {
     }
 
     private fun setTextViews() {
-        tvMoonriseTime.text = moonriseTime
-        tvMoonsetTime.text = moonsetTime
-        tvNextNewMoon.text = nextNewMoon
-        tvNextFullMoon.text = nextFullMoon
-        tvMoonState.text = moonState
-        tvLunarMonth.text = lunarMonth
+        activity?.runOnUiThread {
+            tvMoonriseTime.text = moonriseTime
+            tvMoonsetTime.text = moonsetTime
+            tvNextNewMoon.text = nextNewMoon
+            tvNextFullMoon.text = nextFullMoon
+            tvMoonState.text = moonState
+            tvLunarMonth.text = lunarMonth
+        }
     }
 
-    fun updateTextViews(){
+    private fun updateTextViews(){
         this.moonriseTime=MainActivity.moonriseTime
         this.moonsetTime=MainActivity.moonsetTime
         this.nextNewMoon=MainActivity.nextNewMoon

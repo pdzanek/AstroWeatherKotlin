@@ -70,6 +70,28 @@
                 android:textAlignment="viewStart"
                 android:visibility="visible" />
 
+        <TextView
+                android:text="Wybierz miasto dla którego chcesz pobierać dane pogodowe:"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:id="@+id/labelSetCity" android:textSize="18sp"/>
+        <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:id="@+id/spinnerCity" android:textAlignment="viewStart"
+                android:spinnerMode="dropdown"/>
+        <TextView
+                android:text="Wpisz nazwę miasta w polu poniżej aby dodać do listy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:id="@+id/labelTemptation" android:textSize="18sp"/>
+        <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:ems="10"
+                android:id="@+id/editCity" android:hint="Wpisz nazwę "/>
+        <Button
+                android:text="Dodaj Miasto Do Ulubionych"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:id="@+id/buttonAddCity" android:onClick="onClick"/>
         <Button
                 android:id="@+id/buttonSaveAndExit"
                 android:layout_width="match_parent"

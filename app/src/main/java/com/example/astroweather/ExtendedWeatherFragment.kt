@@ -66,12 +66,14 @@ class ExtendedWeatherFragment : Fragment() {
 
     @SuppressLint("SetTextI18n")
     private fun setTextViews() {
-        tvCityName.text = cityName
-        tvWindSpeed.text = "$windSpeed m/s"
-        tvWindDeg.text = "$windDeg°"
-        tvVisibility.text = "$visibility m"
-        tvClouds.text = "$clouds%"
-        tvHumidity.text = "$humidity%"
+        activity?.runOnUiThread {
+            tvCityName.text = cityName
+            tvWindSpeed.text = "$windSpeed m/s"
+            tvWindDeg.text = "$windDeg°"
+            tvVisibility.text = "$visibility m"
+            tvClouds.text = "$clouds%"
+            tvHumidity.text = "$humidity%"
+        }
     }
 
     fun updateTextViews(cityName:String?,windSpeed:String?,windDeg:String?,visibility:String?,clouds:String?,humidity:String?) {
@@ -100,7 +102,7 @@ class ExtendedWeatherFragment : Fragment() {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         val weatherService = retrofit.create(WeatherService::class.java)
-        weatherService.groupList(("Łódź"), "metric", key).enqueue(object : Callback<WeatherData> {
+        weatherService.groupList((MainActivity.cityName), "metric", key).enqueue(object : Callback<WeatherData> {
             override fun onFailure(call: Call<WeatherData>, t: Throwable) {
                 Log.i("Retrofit", "failure")
             }

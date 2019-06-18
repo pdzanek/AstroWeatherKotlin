@@ -9,16 +9,30 @@ import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_settings.*
 import java.lang.Double.parseDouble
 import android.preference.PreferenceManager
+import android.util.Log
 
 class Settings : AppCompatActivity(), View.OnClickListener {
+    private val PREFS_FILENAME = "cityAdapter"
     private var latitude = 0.0
     private var longitude = 0.0
     private var updateTime = 1
     private var readerLongitude = ""
     private var readerLatitude = ""
+    private var cityName="Łódź"
+    private lateinit var cityList : ArrayList<String>
 
     override fun onClick(v: View?) {
         when(v!!.id){
+            R.id.buttonAddCity->{
+                if(editCity.text.toString()==""){}
+                else {
+                    Log.i("button pressed", "true")
+                    cityList.add(editCity.text.toString())
+                    val arrayAdapterCity = ArrayAdapter(this, android.R.layout.simple_spinner_item, cityList)
+                    spinnerCity.adapter = arrayAdapterCity
+                    editCity.setText("")
+                }
+            }
             R.id.buttonSaveAndExit ->{
                 if(editLatitude.text.toString() == "" || editLatitude.text.toString() == ".") {
                     latitude=0.0
@@ -37,12 +51,24 @@ class Settings : AppCompatActivity(), View.OnClickListener {
                 } catch (e: NumberFormatException) {
                     Integer.parseInt(spinnerTime.selectedItem.toString().substring(0, 1))
                 }
+                cityName = spinnerCity.selectedItem.toString()
                 val preferences = PreferenceManager.getDefaultSharedPreferences(this)
                 val editor = preferences.edit()
                 editor.putString("latitude", latitude.toString())
                 editor.putString("longitude", longitude.toString())
                 editor.putInt("updateTime", updateTime)
+                editor.putString("cityName", cityName)
                 editor.apply()
+                val preferencesAdapter = getSharedPreferences(PREFS_FILENAME,0)
+                val editorAdapter = preferencesAdapter?.edit()
+                var j=0
+                while(j<cityList.size) {
+                    Log.i("pos$j", cityList[j])
+                    editorAdapter?.putString("cityName$j", cityList[j])
+                    j+=1
+                }
+                editorAdapter?.putInt("cityNameCount", cityList.size)
+                editorAdapter?.apply()
                 super.onBackPressed()
             }
             R.id.buttonExitWithoutSaving ->{
@@ -55,8 +81,9 @@ class Settings : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
         supportActionBar!!.hide()
-        initComponents()
+        cityList = ArrayList()
         readSharedPreferences()
+        initComponents()
         if (savedInstanceState != null) {
             editLatitude.setText(savedInstanceState.getString("editLatitude"))
             editLongitude.setText(savedInstanceState.getString("editLongitude"))
@@ -74,10 +101,24 @@ class Settings : AppCompatActivity(), View.OnClickListener {
         readerLatitude = preferences.getString("latitude","0.0")
         readerLongitude = preferences.getString("longitude", "0.0")
         updateTime = preferences.getInt("updateTime", 1)
+        cityName = preferences.getString("cityName", "Łódź")
+        val preferencesAdapter = getSharedPreferences(PREFS_FILENAME,0)
+        var cityNameCount=0
+        cityNameCount = preferencesAdapter.getInt("cityNameCount", 0)
+        var i=0
+        Log.i("reading preferences", "XD")
+        while (i<cityNameCount){
+            val valueCity = preferencesAdapter.getString("cityName$i","Łódź")
+            cityList.add(valueCity)
+            Toast.makeText(this,"Dodano miasto do ulubionych", Toast.LENGTH_SHORT).show()
+            i+=1
+        }
     }
     private fun initComponents(){
         val arrayAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, resources.getStringArray(R.array.spinnerAdapter))
+        val arrayAdapterCity = ArrayAdapter(this,android.R.layout.simple_spinner_item,cityList)
         spinnerTime.adapter = arrayAdapter
+        spinnerCity.adapter = arrayAdapterCity
     }
 
     public override fun onSaveInstanceState(savedInstanceState: Bundle) {
